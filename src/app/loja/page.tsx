@@ -2,8 +2,9 @@ import Link from "next/link";
 
 import styles from "./loja.module.css";
 import { PageHeader } from "@/components/layout/PageHeader";
+import { FeaturedProduct } from "@/components/product/FeaturedProduct";
 import { ProductGrid } from "@/components/product/ProductGrid";
-import { COLLECTIONS } from "@/config/navigation";
+import { COLLECTIONS, collectionLabel } from "@/config/navigation";
 import { getProductsByCollection } from "@/lib/catalog";
 import type { CollectionId } from "@/lib/types";
 
@@ -59,7 +60,13 @@ export default async function LojaPage({ searchParams }: LojaPageProps) {
         {products.length} {products.length === 1 ? "item" : "itens"}
       </p>
 
-      <ProductGrid products={products} />
+      {/* Uma coleção de um item só fica melhor como vitrine do que como um
+          card solto no canto da grade. */}
+      {products.length === 1 && products[0] ? (
+        <FeaturedProduct product={products[0]} eyebrow={collectionLabel(products[0].collection)} title={products[0].name} />
+      ) : (
+        <ProductGrid products={products} />
+      )}
     </div>
   );
 }

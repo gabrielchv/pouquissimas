@@ -30,3 +30,10 @@
     row-gap: var(--space-7);
   }
 }
+
+/* Um único produto na grade ocupa a largura de dois cards. */
+.single {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  max-width: 40rem;
+}

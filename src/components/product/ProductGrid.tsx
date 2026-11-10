@@ -17,8 +17,11 @@ export function ProductGrid({ products, priorityCount = 4 }: ProductGridProps) {
     );
   }
 
+  // Uma coleção de um item só não deve virar um card pequeno num canto.
+  const layoutClass = products.length === 1 ? styles.single : styles.grid;
+
   return (
-    <ul className={styles.grid}>
+    <ul className={layoutClass}>
       {products.map((product, index) => (
         <li key={product.id} className={styles.item}>
           <ProductCard product={product} priority={index < priorityCount} />

@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 import styles from "./page.module.css";
+import { FeaturedProduct } from "@/components/product/FeaturedProduct";
 import { ProductGrid } from "@/components/product/ProductGrid";
 import { SectionHeading } from "@/components/product/SectionHeading";
 import { buttonClassName } from "@/components/ui/button-classes";
@@ -15,6 +16,7 @@ import {
 export default function HomePage() {
   const latest = getNewArrivals(8);
   const shapes = getProductsByCollection("shapes");
+  const singleShape = shapes.length === 1 ? shapes[0] : undefined;
   const onSale = getSaleProducts().slice(0, 4);
 
   return (
@@ -24,21 +26,33 @@ export default function HomePage() {
           id="novidades"
           eyebrow="Nova temporada"
           title="Últimos lançamentos"
-          description="Shapes novos e algodão pesado, estampado em tiragens pequenas."
+          description="Camisetas novas, estampadas em tiragens pequenas."
           action={{ label: "Ver tudo", href: "/loja" }}
         />
         <ProductGrid products={latest} />
       </section>
 
-      <section className={`container ${styles.section}`} aria-labelledby="shapes">
-        <SectionHeading
-          id="shapes"
-          eyebrow="Sete lâminas de bordo"
-          title="Shapes"
-          action={{ label: "Todos os shapes", href: "/loja?colecao=shapes" }}
-        />
-        <ProductGrid products={shapes} priorityCount={0} />
-      </section>
+      {/* A coleção tem um shape só: uma vitrine ocupa melhor o espaço que
+          uma grade de quatro colunas com um card pequeno no canto. */}
+      <div className={`container ${styles.section}`}>
+        {singleShape ? (
+          <FeaturedProduct
+            product={singleShape}
+            eyebrow="Sete lâminas de bordo"
+            title="Shapes"
+          />
+        ) : (
+          <section aria-labelledby="shapes">
+            <SectionHeading
+              id="shapes"
+              eyebrow="Sete lâminas de bordo"
+              title="Shapes"
+              action={{ label: "Todos os shapes", href: "/loja?colecao=shapes" }}
+            />
+            <ProductGrid products={shapes} priorityCount={0} />
+          </section>
+        )}
+      </div>
 
       <section className={`container ${styles.section}`} aria-labelledby="video">
         <Link href="/video" className={styles.videoBand}>

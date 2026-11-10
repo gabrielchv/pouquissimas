@@ -276,8 +276,7 @@ def build_product(shape: str, motif: str, colour, motif_colour) -> Image.Image:
 # (filename, shape, motif, garment colour, print colour)
 PRODUCTS = [
     ("deck-01", "deck", "crosshair", INK, AMARELO),
-    ("deck-02", "deck", "checker", BONE, OLIVE),
-    ("deck-03", "deck", "rings", PLUM, BONE),
+    ("deck-02", "deck", "rings", PLUM, BONE),
     ("tee-01", "tee", "crosshair", INK, AMARELO),
     ("tee-02", "tee", "target", BONE, VERMELHO),
     ("tee-03", "tee", "word", INK, AZUL),

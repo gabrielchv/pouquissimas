@@ -14,8 +14,8 @@ produto são provisórias e devem ser trocadas pelas do ensaio oficial.
 
 - **Navegação**: as quatro abas pedidas — LOJA, VÍDEO, PROMOÇÕES e PRÉVIA.
   LOJA abre um menu com as coleções; nada mais no nível de cima.
-- **Catálogo**: 10 produtos, só shapes e camisetas, com filtro por coleção,
-  preço promocional, estado esgotado e página de prévia.
+- **Catálogo**: 7 produtos — um shape e seis camisetas — com filtro por coleção,
+  preço promocional e página de prévia.
 - **Página de produto**: galeria com foto alternativa, escolha de tamanho,
   quantidade, adicionar à sacola e produtos relacionados.
 - **Sacola**: adicionar pela página ou compra rápida no card, painel lateral,
@@ -155,9 +155,12 @@ Produtos, preços, cores, tamanhos e descrições ficam em `src/lib/catalog.ts`.
 Os preços são inteiros em centavos (`34900` = R$ 349,00), o que mantém a conta
 exata. Os tamanhos de vestuário são P, M, G e GG; shapes usam 8.0, 8.25 e 8.5.
 
-A loja vende só dois tipos de produto: **shapes** e **camisetas**. Manga longa
-conta como camiseta; moletom, boné, touca e acessórios ficaram fora do catálogo
-e das coleções. Para voltar a vender outra categoria, acrescente o id em
+A loja vende só dois tipos de produto: **shapes** e **camisetas**, e o catálogo
+tem **um único shape** (SHAPE FULL DIP, em três tamanhos). Manga longa conta
+como camiseta; moletom, boné, touca e acessórios ficaram fora do catálogo e das
+coleções. Como shapes é uma coleção de um item, ela aparece como vitrine
+(`FeaturedProduct`) em vez de card solto na grade — na home e em
+`/loja?colecao=shapes`. Para voltar a vender outra categoria, acrescente o id em
 `CollectionId` (`src/lib/types.ts`), em `COLLECTIONS`
 (`src/config/navigation.ts`) e os produtos em `src/lib/catalog.ts`.
 
@@ -213,8 +216,8 @@ Checado no build de produção em 1440×950 e 390×844:
 - Quatro abas, em português, e rotas antigas em inglês retornando 404.
 - Adicionar à sacola → painel → recarregar (sacola persiste) → alterar
   quantidade → esvaziar.
-- Catálogo com 10 produtos, só SHAPES e CAMISETAS (manga longa entra como
-  camiseta), e nenhuma peça de boné, moletom ou acessório.
+- Catálogo com 7 produtos: um shape e seis camisetas (manga longa entra como
+  camiseta), sem boné, moletom ou acessório.
 - Senha errada mostra erro; login de demonstração chega em `/conta`; sair volta
   para a home; `/conta` deslogada redireciona para `/entrar?next=/conta`.
 - Slug inexistente devolve 404; filtro por coleção devolve os produtos certos.
