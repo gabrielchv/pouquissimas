@@ -22,21 +22,6 @@ export const COLLECTIONS: Collection[] = [
     label: "CAMISETAS",
     blurb: "Algodão pesado, estampado em tiragens pequenas.",
   },
-  {
-    id: "moletons",
-    label: "MOLETONS",
-    blurb: "Manga longa e moletom para os dias de frio.",
-  },
-  {
-    id: "bones",
-    label: "BONÉS",
-    blurb: "Bonés e toucas feitos para andar de skate.",
-  },
-  {
-    id: "acessorios",
-    label: "ACESSÓRIOS",
-    blurb: "Parafusos e as peças pequenas que mantêm tudo rodando.",
-  },
 ];
 
 export function collectionLabel(id: CollectionId): string {

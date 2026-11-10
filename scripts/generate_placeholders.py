@@ -120,51 +120,10 @@ def longsleeve_mask(draw: ScaledDraw) -> None:
     draw.polygon([(856, 400), (940, 800), (865, 820), (780, 470)], fill=255)
 
 
-def hoodie_mask(draw: ScaledDraw) -> None:
-    draw.polygon(
-        [
-            (330, 320), (420, 260), (470, 300), (610, 300), (660, 260),
-            (750, 320), (860, 430), (820, 830), (760, 830), (760, 900),
-            (320, 900), (320, 830), (260, 830), (220, 430),
-        ],
-        fill=255,
-    )
-    draw.ellipse((420, 205, 660, 400), fill=255)
-    draw.ellipse((470, 280, 610, 390), fill=0)
-
-
-def cap_mask(draw: ScaledDraw) -> None:
-    draw.ellipse((250, 330, 810, 890), fill=255)
-    draw.rectangle((250, 700, 810, 880), fill=255)
-    draw.ellipse((160, 790, 900, 950), fill=255)
-    draw.ellipse((520, 300, 600, 380), fill=0)
-
-
-def beanie_mask(draw: ScaledDraw) -> None:
-    draw.ellipse((300, 260, 760, 900), fill=255)
-    draw.rectangle((300, 700, 760, 940), fill=255)
-    draw.rounded_rectangle((275, 770, 785, 950), radius=30, fill=255)
-
-
-def hardware_mask(draw: ScaledDraw) -> None:
-    """Eight bolts in two staggered columns -- reads as a hardware pack."""
-    positions = []
-    for row in range(4):
-        for col in range(2):
-            positions.append((420 + col * 160 + (row % 2) * 25, 330 + row * 170))
-    for cx, cy in positions:
-        draw.ellipse((cx - 62, cy - 62, cx + 62, cy + 62), fill=255)
-        draw.ellipse((cx - 24, cy - 24, cx + 24, cy + 24), fill=0)
-
-
 MASK_BUILDERS = {
     "deck": deck_mask,
     "tee": tee_mask,
     "longsleeve": longsleeve_mask,
-    "hoodie": hoodie_mask,
-    "cap": cap_mask,
-    "beanie": beanie_mask,
-    "hardware": hardware_mask,
 }
 
 
@@ -325,13 +284,6 @@ PRODUCTS = [
     ("tee-04", "tee", "stripes", BONE, INK),
     ("longsleeve-01", "longsleeve", "target", INK, AMARELO),
     ("longsleeve-02", "longsleeve", "stripes", OLIVE, BONE),
-    ("hoodie-01", "hoodie", "rings", INK, AZUL),
-    ("hoodie-02", "hoodie", "word", BONE, INK),
-    ("cap-01", "cap", "crosshair", INK, AMARELO),
-    ("cap-02", "cap", "word", OLIVE, BONE),
-    ("beanie-01", "beanie", "stripes", PLUM, BONE),
-    ("beanie-02", "beanie", "checker", INK, AMARELO),
-    ("hardware-01", "hardware", "rings", BONE, INK),
 ]
 
 

@@ -1,11 +1,10 @@
 /** Tipos de domínio compartilhados entre a loja, a sacola e o checkout. */
 
-export type CollectionId =
-  | "shapes"
-  | "camisetas"
-  | "moletons"
-  | "bones"
-  | "acessorios";
+/**
+ * A loja trabalha com dois tipos de produto: shapes e camisetas.
+ * Manga longa entra como camiseta; moletom, boné e acessório ficaram de fora.
+ */
+export type CollectionId = "shapes" | "camisetas";
 
 export interface Collection {
   id: CollectionId;

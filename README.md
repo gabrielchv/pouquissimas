@@ -14,8 +14,8 @@ produto são provisórias e devem ser trocadas pelas do ensaio oficial.
 
 - **Navegação**: as quatro abas pedidas — LOJA, VÍDEO, PROMOÇÕES e PRÉVIA.
   LOJA abre um menu com as coleções; nada mais no nível de cima.
-- **Catálogo**: 17 produtos em shapes, camisetas, moletons, bonés e acessórios,
-  com filtro por coleção, preço promocional, estado esgotado e página de prévia.
+- **Catálogo**: 10 produtos, só shapes e camisetas, com filtro por coleção,
+  preço promocional, estado esgotado e página de prévia.
 - **Página de produto**: galeria com foto alternativa, escolha de tamanho,
   quantidade, adicionar à sacola e produtos relacionados.
 - **Sacola**: adicionar pela página ou compra rápida no card, painel lateral,
@@ -62,7 +62,7 @@ src/
   app/                     rotas (App Router)
     layout.tsx             casca: provider da sacola, fundo, cabeçalho, rodapé
     page.tsx               home: lançamentos, shapes, faixa de vídeo, promoções
-    loja/page.tsx          catálogo + filtro (?colecao=shapes)
+    loja/page.tsx          catálogo + filtro (?colecao=shapes|camisetas)
     promocoes/page.tsx     produtos com desconto
     previa/page.tsx        grade de lookbook
     video/page.tsx         fitas com player adiado
@@ -155,6 +155,12 @@ Produtos, preços, cores, tamanhos e descrições ficam em `src/lib/catalog.ts`.
 Os preços são inteiros em centavos (`34900` = R$ 349,00), o que mantém a conta
 exata. Os tamanhos de vestuário são P, M, G e GG; shapes usam 8.0, 8.25 e 8.5.
 
+A loja vende só dois tipos de produto: **shapes** e **camisetas**. Manga longa
+conta como camiseta; moletom, boné, touca e acessórios ficaram fora do catálogo
+e das coleções. Para voltar a vender outra categoria, acrescente o id em
+`CollectionId` (`src/lib/types.ts`), em `COLLECTIONS`
+(`src/config/navigation.ts`) e os produtos em `src/lib/catalog.ts`.
+
 ## Sacola
 
 A sacola é um store externo pequeno (`src/features/cart/cart-store.ts`), lido com
@@ -207,7 +213,8 @@ Checado no build de produção em 1440×950 e 390×844:
 - Quatro abas, em português, e rotas antigas em inglês retornando 404.
 - Adicionar à sacola → painel → recarregar (sacola persiste) → alterar
   quantidade → esvaziar.
-- Compra rápida em item de tamanho único.
+- Catálogo com 10 produtos, só SHAPES e CAMISETAS (manga longa entra como
+  camiseta), e nenhuma peça de boné, moletom ou acessório.
 - Senha errada mostra erro; login de demonstração chega em `/conta`; sair volta
   para a home; `/conta` deslogada redireciona para `/entrar?next=/conta`.
 - Slug inexistente devolve 404; filtro por coleção devolve os produtos certos.

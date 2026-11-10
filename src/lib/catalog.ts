@@ -1,7 +1,6 @@
 import type { CollectionId, Product } from "@/lib/types";
 
 const TAMANHOS = ["P", "M", "G", "GG"];
-const TAMANHO_UNICO = ["ÚNICO"];
 
 /**
  * O catálogo é dado puro, de propósito: sem banco, sem CMS, sem rede.
@@ -44,6 +43,7 @@ export const PRODUCTS: Product[] = [
     name: "SHAPE TURNO DA NOITE",
     collection: "shapes",
     price: 35900,
+    compareAtPrice: 39900,
     image: "/media/products/deck-03.png",
     hoverImage: "/media/products/deck-02.png",
     colorway: "AMORA / CRU",
@@ -123,7 +123,7 @@ export const PRODUCTS: Product[] = [
     id: "p-manga-longa-amarela",
     slug: "manga-longa-amarela",
     name: "MANGA LONGA AMARELA",
-    collection: "moletons",
+    collection: "camisetas",
     price: 18990,
     image: "/media/products/longsleeve-01.png",
     hoverImage: "/media/products/longsleeve-02.png",
@@ -137,7 +137,7 @@ export const PRODUCTS: Product[] = [
     id: "p-manga-longa-oliva",
     slug: "manga-longa-oliva",
     name: "MANGA LONGA OLIVA",
-    collection: "moletons",
+    collection: "camisetas",
     price: 18990,
     image: "/media/products/longsleeve-02.png",
     colorway: "OLIVA / CRU",
@@ -145,101 +145,6 @@ export const PRODUCTS: Product[] = [
     description:
       "Manga longa tingida na peça em oliva, com estampa cru. Toque macio, corte amplo.",
     soldOut: true,
-  },
-  {
-    id: "p-moletom-aneis",
-    slug: "moletom-aneis",
-    name: "MOLETOM ANÉIS",
-    collection: "moletons",
-    price: 39900,
-    image: "/media/products/hoodie-01.png",
-    hoverImage: "/media/products/hoodie-02.png",
-    colorway: "PRETO / AZUL",
-    sizes: TAMANHOS,
-    description:
-      "Moletom 14 oz com interior escovado, capuz forrado e bolso canguru. Estampa de anéis no peito.",
-    isNew: true,
-  },
-  {
-    id: "p-moletom-letreiro-cru",
-    slug: "moletom-letreiro-cru",
-    name: "MOLETOM LETREIRO CRU",
-    collection: "moletons",
-    price: 38900,
-    compareAtPrice: 49900,
-    image: "/media/products/hoodie-02.png",
-    hoverImage: "/media/products/hoodie-01.png",
-    colorway: "CRU / PRETO",
-    sizes: TAMANHOS,
-    description:
-      "Moletom pesado em cru com estampa preta no peito. Pré-encolhido, mantém o formato.",
-  },
-  {
-    id: "p-bone-mira",
-    slug: "bone-mira",
-    name: "BONÉ MIRA",
-    collection: "bones",
-    price: 13900,
-    image: "/media/products/cap-01.png",
-    hoverImage: "/media/products/cap-02.png",
-    colorway: "PRETO / AMARELO",
-    sizes: TAMANHO_UNICO,
-    description:
-      "Seis gomos em sarja de algodão, mira bordada, tira ajustável atrás.",
-    isNew: true,
-  },
-  {
-    id: "p-bone-campo-oliva",
-    slug: "bone-campo-oliva",
-    name: "BONÉ CAMPO OLIVA",
-    collection: "bones",
-    price: 13900,
-    image: "/media/products/cap-02.png",
-    hoverImage: "/media/products/cap-01.png",
-    colorway: "OLIVA / CRU",
-    sizes: TAMANHO_UNICO,
-    description:
-      "Cinco gomos sem estrutura em lona oliva lavada. Assenta baixo, aba macia.",
-  },
-  {
-    id: "p-touca-listrada",
-    slug: "touca-listrada",
-    name: "TOUCA LISTRADA",
-    collection: "bones",
-    price: 9990,
-    image: "/media/products/beanie-01.png",
-    hoverImage: "/media/products/beanie-02.png",
-    colorway: "AMORA / CRU",
-    sizes: TAMANHO_UNICO,
-    description:
-      "Touca em tricô canelado com dobra e listra amora.",
-  },
-  {
-    id: "p-touca-xadrez",
-    slug: "touca-xadrez",
-    name: "TOUCA XADREZ",
-    collection: "bones",
-    price: 9990,
-    compareAtPrice: 12990,
-    image: "/media/products/beanie-02.png",
-    hoverImage: "/media/products/beanie-01.png",
-    colorway: "PRETO / AMARELO",
-    sizes: TAMANHO_UNICO,
-    description:
-      "Dobra xadrez tecida, coroa em tricô canelado. Tamanho único, serve na maioria.",
-  },
-  {
-    id: "p-kit-parafusos",
-    slug: "kit-parafusos",
-    name: "KIT DE PARAFUSOS",
-    collection: "acessorios",
-    price: 3990,
-    image: "/media/products/hardware-01.png",
-    colorway: "CRU",
-    sizes: TAMANHO_UNICO,
-    description:
-      "Oito parafusos e oito porcas em acabamento cru. Serve em bases de truck 7/8\".",
-    isNew: true,
   },
 ];
 

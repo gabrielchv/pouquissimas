@@ -31,7 +31,7 @@ export default async function LojaPage({ searchParams }: LojaPageProps) {
         eyebrow="Loja"
         title="A coleção completa"
         description={
-          activeCollection?.blurb ?? "Shapes, camisetas, moletons, bonés e acessórios."
+          activeCollection?.blurb ?? "Shapes e camisetas."
         }
       />
 

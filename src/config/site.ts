@@ -5,7 +5,7 @@ export const SITE = {
   tagline: "Skate feito no Brasil.",
   announcement: "FRETE GRÁTIS ACIMA DE R$ 299",
   description:
-    "Shapes, camisetas e acessórios de uma marca brasileira de skate. Feito para andar de verdade.",
+    "Shapes e camisetas de uma marca brasileira de skate. Feito para andar de verdade.",
   email: "contato@example.com",
   instagram: "https://instagram.com",
   currency: "BRL",
