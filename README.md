@@ -220,7 +220,10 @@ O site está publicado em:
 
 ```
 https://pouquissimas-662877194200.southamerica-east1.run.app
+https://pouquissimas-e77phu6mxq-rj.a.run.app        (alias da mesma revisão)
 ```
+
+Código no GitHub (privado): <https://github.com/gabrielchv/pouquissimas>
 
 Projeto `machine-learning-study-481717`, região `southamerica-east1` (São Paulo),
 serviço `pouquissimas`. Configuração: 512 MiB, 1 vCPU, mínimo 0 e máximo 3
@@ -267,7 +270,13 @@ gcloud run services delete pouquissimas \
 ## Domínio: pouquissimas.com no Cloudflare
 
 O domínio já está com os nameservers do Cloudflare (`ganz` / `emerie.ns.cloudflare.com`)
-e ainda não tem registro no apex. O serviço está em `southamerica-east1`.
+e ainda não tem registro web no apex. O serviço está em `southamerica-east1`.
+
+**Atenção: o domínio já tem e-mail configurado** — MX do Cloudflare Email
+Routing (`route1.mx.cloudflare.net` e outros) e um TXT de SPF
+(`v=spf1 include:_spf.mx.cloudflare.net ~all`). Os registros de web criados
+abaixo são de outros tipos (A/AAAA/CNAME) e não mexem no e-mail, mas não remova
+nem altere os registros MX/TXT ao configurar DNS.
 
 ### Por que não é só "apontar um CNAME"
 
@@ -297,17 +306,19 @@ O Worker faz três coisas além do proxy:
 
 ### Publicar
 
+O caminho mais curto é um script que confere tudo antes de publicar:
+
 ```bash
-# 1. autenticar (uma vez)
+# uma vez: login interativo, ou um token em ~/.cloudflare-token
 npx wrangler login
-#    ou, em CI: export CLOUDFLARE_API_TOKEN=...
 
-# 2. testar a lógica do Worker (não precisa de Cloudflare)
-npm run cf:test
-
-# 3. publicar; o Worker cria os registros DNS e o certificado sozinho
-npm run cf:deploy
+npm run cf:test              # lógica do Worker, sem Cloudflare
+./scripts/setup-cloudflare.sh # valida token/origem, publica, confere o domínio
 ```
+
+O script recusa rodar se o token não enxergar a zona e explica qual escopo
+falta. Por baixo, ele chama `wrangler deploy` com o `wrangler.jsonc`, e os
+registros DNS + certificado são criados sozinhos.
 
 O `wrangler.jsonc` com `custom_domain: true` cria o registro no apex e no `www`
 automaticamente — não é preciso mexer no painel do Cloudflare.
