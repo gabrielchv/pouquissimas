@@ -214,6 +214,56 @@ provedor real e proteja a rota também no servidor.
   o painel mantém o foco do Tab dentro dele.
 - Com `prefers-reduced-motion`, o vídeo de fundo dá lugar ao poster.
 
+## Deploy no Cloud Run
+
+O site está publicado em:
+
+```
+https://pouquissimas-662877194200.southamerica-east1.run.app
+```
+
+Projeto `machine-learning-study-481717`, região `southamerica-east1` (São Paulo),
+serviço `pouquissimas`. Configuração: 512 MiB, 1 vCPU, mínimo 0 e máximo 3
+instâncias — ou seja, escala para zero e não cobra nada quando ninguém acessa.
+
+### Como o container é montado
+
+`Dockerfile` em três estágios (dependências, build, runtime) sobre
+`node:22-alpine`. O `next.config.ts` usa `output: "standalone"`, então a imagem
+final carrega só o `server.js` e as dependências realmente usadas em runtime, e
+roda como usuário sem privilégio. O `.dockerignore` mantém `node_modules`,
+`.next` e os scripts de desenvolvimento fora do contexto de build.
+
+Teste local da imagem:
+
+```bash
+docker build -t pouquissimas:local .
+docker run --rm -p 8081:8080 -e PORT=8080 pouquissimas:local
+# http://localhost:8081
+```
+
+### Publicar uma nova versão
+
+```bash
+gcloud run deploy pouquissimas \
+  --source . \
+  --region southamerica-east1 \
+  --project machine-learning-study-481717 \
+  --allow-unauthenticated \
+  --port 8080
+```
+
+O `--source .` usa o `Dockerfile`, envia o contexto para o Cloud Build e publica
+a imagem no Artifact Registry (`cloud-run-source-deploy`).
+
+### Remover
+
+```bash
+gcloud run services delete pouquissimas \
+  --region southamerica-east1 \
+  --project machine-learning-study-481717
+```
+
 ## Verificação
 
 Checado no build de produção em 1440×950 e 390×844:
@@ -229,3 +279,7 @@ Checado no build de produção em 1440×950 e 390×844:
   para a home; `/conta` deslogada redireciona para `/entrar?next=/conta`.
 - Slug inexistente devolve 404; filtro por coleção devolve os produtos certos.
 - Nenhum erro de console e nenhum estouro horizontal em nenhuma página a 390px.
+
+Também verificado na imagem Docker (porta 8080, usuário sem privilégio) e no
+serviço publicado no Cloud Run: todas as rotas em 200, vídeo de fundo tocando,
+giro do logo ativo, 404 correto e nenhum 4xx/5xx em assets.

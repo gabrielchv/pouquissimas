@@ -1,0 +1,15 @@
+node_modules
+.next
+.git
+.gitignore
+out
+build
+*.tsbuildinfo
+.DS_Store
+.env*.local
+README.md
+scripts
+.claude
+.agents
+.codewhale
+.playwright-mcp
