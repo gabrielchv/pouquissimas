@@ -6,7 +6,35 @@
 }
 
 .logo:hover {
-  opacity: 0.85;
+  opacity: 1;
+}
+
+/* O giro fica num wrapper para não brigar com o dimensionamento das imagens.
+   transform não afeta o layout do cabeçalho. */
+.spin {
+  display: inline-flex;
+  align-items: center;
+  transform-origin: center;
+  will-change: transform;
+}
+
+/* A imagem girada não deve capturar cliques; o alvo continua sendo o link. */
+.spin img {
+  pointer-events: none;
+}
+
+.logo:hover .spin,
+.logo:focus-visible .spin {
+  animation: logo-spin 900ms cubic-bezier(0.34, 1.3, 0.5, 1);
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 /* Celular: só a linha do nome, senão o texto fica ilegível. */
@@ -35,5 +63,13 @@
 @media (min-width: 990px) {
   .lockup {
     height: 6.2rem;
+  }
+}
+
+/* Quem pediu menos movimento recebe o logo parado. */
+@media (prefers-reduced-motion: reduce) {
+  .logo:hover .spin,
+  .logo:focus-visible .spin {
+    animation: none;
   }
 }

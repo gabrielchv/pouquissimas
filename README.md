@@ -143,6 +143,13 @@ O cabeçalho usa o lockup inteiro a partir de 750px e só o nome no celular, ond
 o lockup ficaria ilegível. Como a arte é branca, ela pressupõe fundo escuro: se
 um dia a loja ganhar tema claro, gere também uma versão escura da arte.
 
+O logo dá uma volta completa (360°) no hover e no foco por teclado — ver
+`.logo:hover .spin` em `src/components/ui/logo.module.css`. O giro é no hover de
+propósito: rotação contínua deixaria o nome de cabeça para baixo metade do
+tempo. Quem prefere movimento reduzido recebe o logo parado
+(`prefers-reduced-motion`). Para girar sem parar, troque a regra por
+`animation: logo-spin 12s linear infinite`.
+
 O caminho da arte original pode ser passado por `POUQUISSIMAS_ART=/caminho`.
 O favicon (`src/app/icon.png`) continua sendo o guará, porque o carro não é
 legível em 32px.

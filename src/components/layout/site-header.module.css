@@ -1,7 +1,9 @@
 .header {
   position: sticky;
   top: 0;
-  z-index: var(--z-header);
+  /* Acima da barra de aviso: o logo gira e passa por cima dela em vez de
+     ser cortado pela borda preta (ver .spin em logo.module.css). */
+  z-index: calc(var(--z-header) + 2);
   border-bottom: 1px solid transparent;
   transition:
     background-color var(--duration-base) var(--ease-out),
