@@ -6,3 +6,6 @@ next-env.d.ts
 *.tsbuildinfo
 .DS_Store
 .env*.local
+
+# estado local do wrangler (cloudflare workers)
+.wrangler

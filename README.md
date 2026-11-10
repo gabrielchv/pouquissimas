@@ -264,6 +264,99 @@ gcloud run services delete pouquissimas \
   --project machine-learning-study-481717
 ```
 
+## Domínio: pouquissimas.com no Cloudflare
+
+O domínio já está com os nameservers do Cloudflare (`ganz` / `emerie.ns.cloudflare.com`)
+e ainda não tem registro no apex. O serviço está em `southamerica-east1`.
+
+### Por que não é só "apontar um CNAME"
+
+O mapeamento de domínio do Cloud Run **não existe em `southamerica-east1`**. As
+regiões suportadas são `us-central1`, `us-east1`, `us-east4`, `us-west1`,
+`europe-west1`, `europe-west4`, `europe-north1`, `asia-east1`,
+`asia-northeast1`, `asia-southeast1`. Além disso o recurso está em preview e a
+própria documentação diz que não é recomendado para produção.
+
+E o `*.run.app` não aceita Host arbitrário: um CNAME direto para a URL do
+serviço devolve 404, porque o Cloud Run roteia por Host.
+
+### A solução usada: Worker na frente
+
+`infra/cloudflare/worker.js` recebe a requisição em `pouquissimas.com`, busca a
+origem no `run.app` e devolve a resposta. Mantém o serviço em São Paulo, não
+precisa de balanceador (que custaria ~US$ 18/mês) e ainda cacheia assets na
+borda do Cloudflare.
+
+O Worker faz três coisas além do proxy:
+
+- `www.pouquissimas.com` → `pouquissimas.com` (301), para um endereço canônico só
+- `/_next/static/*` com `immutable` por 1 ano (o nome do arquivo tem hash)
+- HTML com `s-maxage=60, stale-while-revalidate=300` — o Next marca páginas com
+  `s-maxage=31536000`, o que faria o CDN guardar HTML por um ano
+- `/sacola`, `/conta`, `/entrar`, `/api/*` e `/_next/image` com `no-store`
+
+### Publicar
+
+```bash
+# 1. autenticar (uma vez)
+npx wrangler login
+#    ou, em CI: export CLOUDFLARE_API_TOKEN=...
+
+# 2. testar a lógica do Worker (não precisa de Cloudflare)
+npm run cf:test
+
+# 3. publicar; o Worker cria os registros DNS e o certificado sozinho
+npm run cf:deploy
+```
+
+O `wrangler.jsonc` com `custom_domain: true` cria o registro no apex e no `www`
+automaticamente — não é preciso mexer no painel do Cloudflare.
+
+### Alternativas
+
+- **Balanceador (Application Load Balancer + serverless NEG)**: funciona em
+  qualquer região, TLS 1.2+, domínio 100% gerido no GCP. Custa cerca de
+  US$ 18–25/mês pela regra de encaminhamento.
+- **Mover o serviço para `us-central1`** e usar domain mapping: gratuito, mas
+  aumenta a latência para o Brasil e usa um recurso em preview.
+
+## Ferramentas de Cloudflare para o agente
+
+Duas formas de eu operar o domínio:
+
+### 1. CLI (wrangler)
+
+Já é usado pelos scripts `cf:dev` / `cf:deploy`. Para DNS avulso:
+
+```bash
+export CLOUDFLARE_API_TOKEN=...     # escopo: Zone > DNS > Edit no domínio
+npx wrangler dns list pouquissimas.com
+```
+
+### 2. MCP oficial da Cloudflare
+
+A Cloudflare mantém um servidor MCP remoto oficial em
+`https://mcp.cloudflare.com/mcp`, com acesso à API inteira (DNS, Workers, R2,
+cache). Não precisa instalar nada. Para adicionar em `~/.codewhale/mcp.json`:
+
+```json
+"cloudflare": {
+  "transport": "streamable-http",
+  "url": "https://mcp.cloudflare.com/mcp",
+  "headers": { "Authorization": "Bearer COLE_O_TOKEN_AQUI" }
+}
+```
+
+O mesmo servidor aceita OAuth em clientes interativos. Para uso automatizado,
+crie um token em <https://dash.cloudflare.com/profile/api-tokens> com:
+
+- `Zone:DNS:Edit` em `pouquissimas.com`
+- `Zone:Zone:Read`
+- `Account:Workers Scripts:Edit` (se for publicar o Worker pela API)
+
+Guarde o token em `~/.cloudflare-token` com `chmod 600` — assim ele não entra em
+histórico de shell nem no git.
+
 ## Verificação
 
 Checado no build de produção em 1440×950 e 390×844:

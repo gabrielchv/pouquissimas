@@ -10,7 +10,10 @@
     "lint": "eslint",
     "typecheck": "tsc --noEmit",
     "placeholders": "python3 scripts/generate_placeholders.py",
-    "brand-assets": "python3 scripts/import_brand_assets.py"
+    "brand-assets": "python3 scripts/import_brand_assets.py",
+    "cf:dev": "wrangler dev --config infra/cloudflare/wrangler.jsonc",
+    "cf:deploy": "wrangler deploy --config infra/cloudflare/wrangler.jsonc",
+    "cf:test": "node infra/cloudflare/worker.test.mjs"
   },
   "dependencies": {
     "next": "16.4.6",

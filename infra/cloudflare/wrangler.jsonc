@@ -1,0 +1,15 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "pouquissimas-proxy",
+  "main": "worker.js",
+  "compatibility_date": "2026-11-01",
+
+  // custom_domain cria o registro DNS e o certificado automaticamente no
+  // Cloudflare, inclusive no apex (que não aceita CNAME puro).
+  "routes": [
+    { "pattern": "pouquissimas.com", "custom_domain": true },
+    { "pattern": "www.pouquissimas.com", "custom_domain": true }
+  ],
+
+  "observability": { "enabled": true }
+}
