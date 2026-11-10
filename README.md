@@ -6,9 +6,9 @@ partiu: vídeo de fundo fixo, barra de aviso, cabeçalho com a faixa da marca e
 navegação inline, produtos recortados sobre a grade de quatro colunas, sacola
 lateral e rodapé enxuto.
 
-Toda a arte da marca vem das artes originais da POUQUÍSSIMAS (a faixa desenhada
-à mão e os guarás), processada pelos scripts em `scripts/`. As fotos de produto
-são provisórias e devem ser trocadas pelas do ensaio oficial.
+Toda a arte da marca vem das artes originais da POUQUÍSSIMAS (o logo com o nome
+e o carro, e os guarás), processada pelos scripts em `scripts/`. As fotos de
+produto são provisórias e devem ser trocadas pelas do ensaio oficial.
 
 ## O que funciona
 
@@ -52,7 +52,7 @@ npm run start           # serve o build
 npm run lint            # eslint
 npm run typecheck       # tsc --noEmit
 npm run placeholders    # regenera as imagens provisórias (Python + Pillow)
-npm run brand-assets    # regera wordmark, guará e bando a partir da arte
+npm run brand-assets    # regera logo, variação só do nome e guará
 ```
 
 ## Estrutura
@@ -127,10 +127,25 @@ sozinho atrás de todas as páginas.
 - Nome, tagline, aviso do topo, e-mail, Instagram: `src/config/site.ts`.
 - Cores, tipografia, espaçamentos e raios: bloco `:root` em
   `src/app/globals.css` (`--color-yellow`, `--color-sky`, `--color-red`).
-- Wordmark, guará e bando de guarás: gerados a partir da arte original por
-  `npm run brand-assets`, que escreve em `public/media/brand/`. O caminho da
-  arte original pode ser passado por `POUQUISSIMAS_ART=/caminho`.
-- Favicon: `src/app/icon.png`, também derivado do guará.
+### Logo
+
+O logo é o lockup oficial da marca — o nome sobre o carro, branco sobre
+transparente — a partir de `pouquissimas/shape/shape_back_image_white.png`.
+`npm run brand-assets` gera dois recortes do mesmo arquivo:
+
+```
+public/media/brand/logo.png           lockup completo (nome + carro)
+public/media/brand/logo-wordmark.png  só a linha do nome
+public/media/brand/guara.png          um guará, usado no favicon
+```
+
+O cabeçalho usa o lockup inteiro a partir de 750px e só o nome no celular, onde
+o lockup ficaria ilegível. Como a arte é branca, ela pressupõe fundo escuro: se
+um dia a loja ganhar tema claro, gere também uma versão escura da arte.
+
+O caminho da arte original pode ser passado por `POUQUISSIMAS_ART=/caminho`.
+O favicon (`src/app/icon.png`) continua sendo o guará, porque o carro não é
+legível em 32px.
 
 Mudar esses tokens rebranda a loja inteira; nenhum componente fixa cor de marca.
 

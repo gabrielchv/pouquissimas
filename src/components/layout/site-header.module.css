@@ -189,6 +189,16 @@
   .iconButton {
     width: 4.2rem;
   }
+
+  /* Em telas estreitas o login fica no menu, que já tem "ENTRAR". */
+  .accountButton {
+    display: none;
+  }
+
+  .menuButton {
+    width: 4.2rem;
+    margin-left: -0.4rem;
+  }
 }
 
 @media (min-width: 990px) {

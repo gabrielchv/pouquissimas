@@ -4,31 +4,35 @@ import Link from "next/link";
 import styles from "./logo.module.css";
 import { SITE } from "@/config/site";
 
-interface LogoProps {
-  className?: string;
-  /** `large` é usado em páginas de destaque; o padrão é o cabeçalho. */
-  size?: "default" | "large";
-}
-
 /**
- * A marca oficial: a faixa desenhada à mão com o nome da loja.
- * O arquivo vem de public/media/brand/wordmark.png, gerado pelo script
- * scripts/import_brand_assets.py a partir da arte original.
+ * Logo oficial da marca: o nome sobre o carro, branco sobre transparente.
+ *
+ * A arte vem de public/media/brand/, gerada por `npm run brand-assets` a
+ * partir de pouquissimas/shape/shape_back_image_white.png.
+ *
+ * São dois recortes do mesmo arquivo:
+ * - logo.png          lockup completo (nome + carro), usado a partir de 750px;
+ * - logo-wordmark.png só a linha do nome, para o cabeçalho no celular, onde o
+ *   lockup inteiro deixaria o nome ilegível.
  */
-export function Logo({ className, size = "default" }: LogoProps) {
+export function Logo() {
   return (
-    <Link
-      href="/"
-      className={[styles.logo, styles[size], className].filter(Boolean).join(" ")}
-      aria-label={`${SITE.name} — página inicial`}
-    >
+    <Link href="/" className={styles.logo} aria-label={`${SITE.name} — página inicial`}>
       <Image
-        src="/media/brand/wordmark.png"
+        src="/media/brand/logo.png"
         alt={SITE.name}
-        width={900}
-        height={269}
+        width={1000}
+        height={675}
         priority
-        className={styles.wordmarkImage}
+        className={styles.lockup}
+      />
+      <Image
+        src="/media/brand/logo-wordmark.png"
+        alt={SITE.name}
+        width={1000}
+        height={152}
+        priority
+        className={styles.wordmark}
       />
     </Link>
   );

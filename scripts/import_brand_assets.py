@@ -4,8 +4,9 @@
 Source art lives outside this repository (in the brand folder); this script
 produces the small, optimised crops the storefront actually ships:
 
-    public/media/brand/wordmark.png   hand-drawn banner + wordmark, transparent
-    public/media/brand/guara.png      a single guará, for the favicon / accents
+    public/media/brand/logo.png           lockup oficial: nome + carro
+    public/media/brand/logo-wordmark.png  só o nome, para o cabeçalho no celular
+    public/media/brand/guara.png          um guará, para o favicon e destaques
 
 Run with:  POUQUISSIMAS_ART=/path/to/brand python3 scripts/import_brand_assets.py
 """
@@ -104,23 +105,67 @@ def largest_white_component(image: Image.Image, threshold: int = 230) -> tuple[i
     )
 
 
-def build_wordmark(source: Path) -> Image.Image:
+def build_logo(source: Path, width: int = 1000) -> Image.Image:
+    """Logo oficial, branco sobre transparente.
+
+    A arte original é um lockup empilhado: o nome em cima e o carro embaixo.
+    Recortamos a margem transparente e reduzimos para um tamanho de 2x.
+    """
     image = Image.open(source).convert("RGBA")
+    image = crop_to_content(image)
+    ratio = width / image.width
+    return image.resize((width, max(1, round(image.height * ratio))), Image.LANCZOS)
 
-    # The wordmark sits on the white ribbon; use the largest white blob so the
-    # bird and the sky never enter the crop.
-    x0, y0, x1, y1 = largest_white_component(image)
-    margin = 10
-    cropped = image.crop(
-        (max(0, x0 - margin), max(0, y0 - margin), min(image.width, x1 + margin), min(image.height, y1 + margin))
-    )
 
-    cropped = key_out_sky(cropped)
-    cropped = crop_to_content(cropped)
+def content_bands(alpha: Image.Image, threshold: int = 8) -> list[tuple[int, int]]:
+    """Faixas horizontais com conteúdo, unindo vãos pequenos.
 
-    # Header-sized asset: 900px wide is plenty for a 2x display.
-    ratio = 900 / cropped.width
-    return cropped.resize((900, max(1, round(cropped.height * ratio))), Image.LANCZOS)
+    Na arte original os acentos (´ e ~) formam uma faixa separada das letras,
+    então faixas próximas precisam ser tratadas como uma só.
+    """
+    width, height = alpha.size
+    filled_rows = [
+        alpha.crop((0, y, width, y + 1)).getextrema()[1] > threshold
+        for y in range(height)
+    ]
+
+    bands: list[tuple[int, int]] = []
+    start: int | None = None
+    for y, filled in enumerate(filled_rows):
+        if filled and start is None:
+            start = y
+        elif not filled and start is not None:
+            bands.append((start, y))
+            start = None
+    if start is not None:
+        bands.append((start, height))
+
+    merged: list[tuple[int, int]] = []
+    for band in bands:
+        if merged and band[0] - merged[-1][1] < 80:
+            merged[-1] = (merged[-1][0], band[1])
+        else:
+            merged.append(band)
+    return merged
+
+
+def build_logo_wordmark(source: Path, width: int = 1000) -> Image.Image:
+    """Só a linha do nome, recortada do mesmo lockup.
+
+    Num celular o lockup inteiro ficaria com o nome ilegível; o cabeçalho usa
+    esta versão e o rodapé usa o lockup completo.
+    """
+    image = Image.open(source).convert("RGBA")
+    bands = content_bands(image.getchannel("A"))
+
+    if not bands:
+        raise SystemExit("não encontrei conteúdo na arte do logo")
+
+    top, bottom = bands[0]
+    cropped = crop_to_content(image.crop((0, top, image.width, bottom)))
+
+    ratio = width / cropped.width
+    return cropped.resize((width, max(1, round(cropped.height * ratio))), Image.LANCZOS)
 
 
 def build_single_bird(source: Path) -> Image.Image:
@@ -145,7 +190,11 @@ def main() -> None:
     OUT.mkdir(parents=True, exist_ok=True)
 
     targets = [
-        ("wordmark.png", build_wordmark(ART / "shape" / "shape01-final.png")),
+        ("logo.png", build_logo(ART / "shape" / "shape_back_image_white.png")),
+        (
+            "logo-wordmark.png",
+            build_logo_wordmark(ART / "shape" / "shape_back_image_white.png"),
+        ),
         ("guara.png", build_single_bird(ART / "camiseta" / "guara-bunch.png")),
     ]
 

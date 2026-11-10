@@ -145,7 +145,7 @@ export function SiteHeader() {
           <div className={styles.actions}>
             <Link
               href={user ? "/conta" : "/entrar"}
-              className={styles.iconButton}
+              className={`${styles.iconButton} ${styles.accountButton}`}
               aria-label={user ? `Conta de ${user.name}` : "Entrar"}
               title={user ? "Minha conta" : "Entrar"}
             >

@@ -27,7 +27,7 @@
 
   --page-width: 1600px;
   --gutter: 1.5rem;
-  --header-height: 6.4rem;
+  --header-height: 7.2rem;
 
   --space-1: 0.4rem;
   --space-2: 0.8rem;
@@ -61,7 +61,8 @@
 @media (min-width: 990px) {
   :root {
     --gutter: 4.4rem;
-    --header-height: 7.2rem;
+    /* O logo empilhado (nome + carro) pede um cabeçalho mais alto. */
+    --header-height: 8.6rem;
   }
 }
 

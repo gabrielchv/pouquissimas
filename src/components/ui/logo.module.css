@@ -9,20 +9,31 @@
   opacity: 0.85;
 }
 
-.wordmarkImage {
-  width: auto;
-  height: 3.2rem;
+/* Celular: só a linha do nome, senão o texto fica ilegível. */
+.lockup {
+  display: none;
 }
 
-@media (max-width: 479px) {
-  /* A faixa é larga; numa tela pequena ela só precisa caber. */
-  .wordmarkImage {
-    height: 2.6rem;
+.wordmark {
+  /* Acompanha a largura da tela para caber entre o menu e a sacola. */
+  width: auto;
+  height: clamp(1.4rem, 7.2vw, 1.9rem);
+}
+
+@media (min-width: 750px) {
+  .lockup {
+    display: block;
+    width: auto;
+    height: 5.4rem;
+  }
+
+  .wordmark {
+    display: none;
   }
 }
 
 @media (min-width: 990px) {
-  .wordmarkImage {
-    height: 3.8rem;
+  .lockup {
+    height: 6.2rem;
   }
 }
