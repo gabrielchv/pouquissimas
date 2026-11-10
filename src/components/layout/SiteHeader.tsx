@@ -157,7 +157,9 @@ export function SiteHeader() {
               className={styles.iconButton}
               onClick={openCart}
               aria-label={
-                itemCount > 0 ? `Sacola, ${itemCount} itens` : "Sacola, vazia"
+                itemCount > 0
+                  ? `Sacola, ${itemCount} ${itemCount === 1 ? "item" : "itens"}`
+                  : "Sacola, vazia"
               }
             >
               <BagIcon />

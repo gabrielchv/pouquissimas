@@ -216,11 +216,14 @@ provedor real e proteja a rota também no servidor.
 
 ## Deploy no Cloud Run
 
-O site está publicado em:
+O site está no ar em:
 
 ```
-https://pouquissimas-662877194200.southamerica-east1.run.app
-https://pouquissimas-e77phu6mxq-rj.a.run.app        (alias da mesma revisão)
+https://pouquissimas.com          <- domínio próprio (Cloudflare -> Worker -> Cloud Run)
+https://www.pouquissimas.com      <- redireciona 301 para o apex
+
+https://pouquissimas-662877194200.southamerica-east1.run.app   (origem direta)
+https://pouquissimas-e77phu6mxq-rj.a.run.app                   (alias da origem)
 ```
 
 Código no GitHub (privado): <https://github.com/gabrielchv/pouquissimas>
@@ -337,11 +340,13 @@ Duas formas de eu operar o domínio:
 
 ### 1. CLI (wrangler)
 
-Já é usado pelos scripts `cf:dev` / `cf:deploy`. Para DNS avulso:
+Já é usado pelos scripts `cf:dev` / `cf:deploy`. Atenção: o wrangler 4 **não
+tem mais** o comando `dns`; para consultar ou editar registros avulsos use a API
+direto:
 
 ```bash
-export CLOUDFLARE_API_TOKEN=...     # escopo: Zone > DNS > Edit no domínio
-npx wrangler dns list pouquissimas.com
+curl -s -H "Authorization: Bearer $(cat ~/.cloudflare-token)" \
+  "https://api.cloudflare.com/client/v4/zones?name=pouquissimas.com"
 ```
 
 ### 2. MCP oficial da Cloudflare

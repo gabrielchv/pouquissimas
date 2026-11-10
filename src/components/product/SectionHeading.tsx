@@ -5,8 +5,10 @@ import styles from "./section-heading.module.css";
 import { ArrowRightIcon } from "@/components/ui/Icons";
 
 interface SectionHeadingProps {
-  /** Applied to the <h2>, so sections can point aria-labelledby at it. */
+  /** Applied to the heading, so sections can point aria-labelledby at it. */
   id?: string;
+  /** Nível do heading. A home usa 1 (título da página); seções usam 2. */
+  level?: 1 | 2;
   eyebrow?: string;
   title: string;
   description?: string;
@@ -16,6 +18,7 @@ interface SectionHeadingProps {
 
 export function SectionHeading({
   id,
+  level = 2,
   eyebrow,
   title,
   description,
@@ -26,9 +29,15 @@ export function SectionHeading({
     <div className={styles.heading}>
       <div className={styles.text}>
         {eyebrow && <p className="eyebrow">{eyebrow}</p>}
-        <h2 id={id} className={styles.title}>
-          {title}
-        </h2>
+        {level === 1 ? (
+          <h1 id={id} className={styles.title}>
+            {title}
+          </h1>
+        ) : (
+          <h2 id={id} className={styles.title}>
+            {title}
+          </h2>
+        )}
         {description && <p className={styles.description}>{description}</p>}
         {children}
       </div>

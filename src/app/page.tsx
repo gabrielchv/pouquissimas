@@ -24,6 +24,7 @@ export default function HomePage() {
       <section className={`container ${styles.section}`} aria-labelledby="novidades">
         <SectionHeading
           id="novidades"
+          level={1}
           eyebrow="Nova temporada"
           title="Últimos lançamentos"
           description="Camisetas novas, estampadas em tiragens pequenas."
