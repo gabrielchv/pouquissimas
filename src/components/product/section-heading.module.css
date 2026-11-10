@@ -42,8 +42,8 @@
 }
 
 .action:hover {
-  color: var(--color-acid);
-  border-bottom-color: var(--color-acid);
+  color: var(--color-yellow);
+  border-bottom-color: var(--color-yellow);
 }
 
 @media (max-width: 749px) {

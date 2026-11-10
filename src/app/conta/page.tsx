@@ -1,7 +1,7 @@
 import { AccountView } from "@/features/auth/AccountView";
 
-export const metadata = { title: "Account" };
+export const metadata = { title: "Minha conta" };
 
-export default function AccountPage() {
+export default function ContaPage() {
   return <AccountView />;
 }

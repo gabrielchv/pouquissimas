@@ -39,7 +39,7 @@ export function VideoTile({ src, poster, title, caption, eager = false }: VideoT
             type="button"
             className={styles.poster}
             onClick={() => setIsPlaying(true)}
-            aria-label={`Play ${title}`}
+            aria-label={`Assistir ${title}`}
           >
             <Image
               src={poster}
@@ -52,7 +52,7 @@ export function VideoTile({ src, poster, title, caption, eager = false }: VideoT
             <span className={styles.playButton}>
               <PlayIcon />
             </span>
-            <span className={styles.playLabel}>Play</span>
+            <span className={styles.playLabel}>Assistir</span>
           </button>
         )}
       </div>

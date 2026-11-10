@@ -1,6 +1,6 @@
 import type { CartLine } from "@/lib/types";
 
-const STORAGE_KEY = "skate-shop.cart.v1";
+const STORAGE_KEY = "pouquissimas.cart.v1";
 
 interface PersistedCart {
   version: 1;

@@ -7,9 +7,10 @@
 :root {
   --color-ink: #000000;
   --color-paper: #ffffff;
-  --color-acid: #e3fc02;
-  --color-periwinkle: #8686cf;
-  --color-rust: #b04e2e;
+  /* Cores da marca: amarelo do carro, azul do céu e vermelho do guará. */
+  --color-yellow: #f5d02e;
+  --color-sky: #5aa9dd;
+  --color-red: #c1272d;
 
   --text-primary: rgba(255, 255, 255, 0.92);
   --text-secondary: rgba(255, 255, 255, 0.68);
@@ -142,12 +143,12 @@ h4 {
 }
 
 :focus-visible {
-  outline: 2px solid var(--color-acid);
+  outline: 2px solid var(--color-yellow);
   outline-offset: 3px;
 }
 
 ::selection {
-  background: var(--color-acid);
+  background: var(--color-yellow);
   color: var(--color-ink);
 }
 
@@ -193,7 +194,7 @@ h4 {
   left: 50%;
   z-index: var(--z-modal);
   transform: translate(-50%, -120%);
-  background: var(--color-acid);
+  background: var(--color-yellow);
   color: var(--color-ink);
   padding: 1rem 2rem;
   font-size: 1.2rem;

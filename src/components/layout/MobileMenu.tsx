@@ -47,7 +47,7 @@ export function MobileMenu({ open, onClose }: MobileMenuProps) {
           type="button"
           className={styles.closeButton}
           onClick={onClose}
-          aria-label="Close menu"
+          aria-label="Fechar menu"
         >
           <CloseIcon />
         </button>
@@ -64,17 +64,17 @@ export function MobileMenu({ open, onClose }: MobileMenuProps) {
           ))}
         </ul>
 
-        <p className={styles.groupLabel}>COLLECTIONS</p>
+        <p className={styles.groupLabel}>COLEÇÕES</p>
         <ul className={styles.secondaryList}>
           <li>
-            <Link href="/shop" className={styles.secondaryLink} onClick={onClose}>
-              ALL
+            <Link href="/loja" className={styles.secondaryLink} onClick={onClose}>
+              TODOS
             </Link>
           </li>
           {COLLECTIONS.map((collection) => (
             <li key={collection.id}>
               <Link
-                href={`/shop?collection=${collection.id}`}
+                href={`/loja?colecao=${collection.id}`}
                 className={styles.secondaryLink}
                 onClick={onClose}
               >
@@ -87,11 +87,11 @@ export function MobileMenu({ open, onClose }: MobileMenuProps) {
 
       <div className={styles.footer}>
         <Link
-          href={user ? "/account" : "/login"}
+          href={user ? "/conta" : "/entrar"}
           className={styles.accountLink}
           onClick={onClose}
         >
-          {user ? `Hi, ${user.name.split(" ")[0]}` : "LOG IN"}
+          {user ? `Olá, ${user.name.split(" ")[0]}` : "ENTRAR"}
         </Link>
       </div>
     </div>

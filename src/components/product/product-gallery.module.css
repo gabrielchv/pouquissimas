@@ -33,7 +33,7 @@
 
 .thumb:hover,
 .thumbActive {
-  border-color: var(--color-acid);
+  border-color: var(--color-yellow);
 }
 
 .thumbImage {

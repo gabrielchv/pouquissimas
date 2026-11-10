@@ -16,84 +16,85 @@ interface InfoContent {
   sections: { heading: string; body: string[] }[];
 }
 
-/** Placeholder policy copy. Replace with your own before going live. */
+/** Texto provisório de políticas. Troque pelo seu antes de publicar. */
 const PAGES: Record<string, InfoContent> = {
-  contact: {
-    eyebrow: "Help",
-    title: "Contact",
-    intro: "Questions about an order, a size, or a wholesale enquiry? Start here.",
+  contato: {
+    eyebrow: "Ajuda",
+    title: "Contato",
+    intro: "Dúvida sobre um pedido, tamanho ou revenda? Comece por aqui.",
     sections: [
       {
-        heading: "Orders and sizing",
+        heading: "Pedidos e tamanhos",
         body: [
-          `Email ${SITE.email} with your order number and we will get back to you within two business days.`,
-          "For sizing, every product page lists the measurements we use on our own samples.",
+          `Escreva para ${SITE.email} com o número do pedido e respondemos em até dois dias úteis.`,
+          "Para tamanhos, cada página de produto mostra as medidas que usamos nas nossas próprias peças.",
         ],
       },
       {
-        heading: "Wholesale",
+        heading: "Revenda",
         body: [
-          "Shops interested in stocking the brand can email the same address with a short introduction and a link to your store.",
+          "Lojas interessadas em trabalhar com a marca podem escrever para o mesmo e-mail com uma breve apresentação e o link da loja.",
         ],
       },
     ],
   },
-  shipping: {
-    eyebrow: "Policies",
-    title: "Shipping + returns",
-    intro: "What to expect after you check out.",
+  envio: {
+    eyebrow: "Políticas",
+    title: "Envio e trocas",
+    intro: "O que esperar depois de finalizar a compra.",
     sections: [
       {
-        heading: "Shipping",
+        heading: "Envio",
         body: [
-          "Domestic orders ship within 2–3 business days. Free shipping applies to domestic orders over $150.",
-          "International orders are shipped tracked and usually arrive within 7–14 business days, depending on customs.",
+          "Pedidos no Brasil são postados em até 3 dias úteis. O frete é grátis acima de R$ 299.",
+          "Enviamos para todo o país com rastreio. O prazo de entrega depende da região e é informado no checkout.",
         ],
       },
       {
-        heading: "Returns",
+        heading: "Trocas e devoluções",
         body: [
-          "Unworn items can be returned within 30 days of delivery for a refund or exchange. Sale items are final sale.",
-          "Email us before shipping anything back so we can send the right return address.",
+          "Peças sem uso podem ser trocadas em até 30 dias após o recebimento. Peças em promoção não têm troca.",
+          "Escreva para nós antes de enviar qualquer peça de volta, para passarmos o endereço correto.",
         ],
       },
     ],
   },
-  terms: {
+  termos: {
     eyebrow: "Legal",
-    title: "Terms of service",
-    intro: "The short version of the agreement between you and the shop.",
+    title: "Termos de uso",
+    intro: "A versão curta do acordo entre você e a loja.",
     sections: [
       {
-        heading: "Orders",
+        heading: "Pedidos",
         body: [
-          "An order is an offer to buy. We confirm that offer when the order ships, and we may cancel an order if an item sells out or a price is listed in error.",
+          "Um pedido é uma oferta de compra. Confirmamos essa oferta quando o pedido é enviado, e podemos cancelar caso uma peça esgote ou um preço seja cadastrado errado.",
         ],
       },
       {
-        heading: "Use of the site",
+        heading: "Uso do site",
         body: [
-          "Product photography, artwork and copy on this site belong to the brand and may not be reused commercially without permission.",
+          "As fotos, ilustrações e textos deste site pertencem à marca e não podem ser reutilizados comercialmente sem autorização.",
         ],
       },
     ],
   },
-  privacy: {
+  privacidade: {
     eyebrow: "Legal",
-    title: "Privacy policy",
-    intro: "What we collect and why.",
+    title: "Política de privacidade",
+    intro: "O que coletamos e por quê.",
     sections: [
       {
-        heading: "What we collect",
+        heading: "O que coletamos",
         body: [
-          "Order details needed to fulfil your purchase: name, shipping address, email, and items ordered.",
-          "Payment details are handled by our payment provider. We never store card numbers ourselves.",
+          "Os dados necessários para entregar sua compra: nome, endereço, e-mail e itens pedidos.",
+          "Dados de pagamento são tratados pelo meio de pagamento. Nunca guardamos o número do cartão.",
         ],
       },
       {
-        heading: "Your choices",
+        heading: "Seus direitos",
         body: [
-          `You can ask us to delete your account data at any time by emailing ${SITE.email}.`,
+          `Você pode pedir a exclusão dos seus dados a qualquer momento escrevendo para ${SITE.email}.`,
+          "Tratamos os dados conforme a Lei Geral de Proteção de Dados (LGPD).",
         ],
       },
     ],
@@ -107,7 +108,7 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: InfoPageProps): Promise<Metadata> {
   const { slug } = await params;
   const page = PAGES[slug];
-  return { title: page ? page.title : "Not found" };
+  return { title: page ? page.title : "Não encontrado" };
 }
 
 export default async function InfoPage({ params }: InfoPageProps) {
@@ -134,8 +135,8 @@ export default async function InfoPage({ params }: InfoPageProps) {
           ))}
 
           <p className={styles.placeholder}>
-            This is placeholder policy copy for the template. Replace it with
-            your review-approved text before launch.
+            Este é um texto provisório de política do template. Troque pelo texto
+            revisado da marca antes de publicar.
           </p>
         </div>
       </article>

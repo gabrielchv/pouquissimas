@@ -30,8 +30,8 @@
 }
 
 .primary {
-  background: var(--color-acid);
-  border-color: var(--color-acid);
+  background: var(--color-yellow);
+  border-color: var(--color-yellow);
   color: #1f1f21;
 }
 

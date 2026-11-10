@@ -9,10 +9,8 @@ import { useCart } from "./cart-context";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { buttonClassName } from "@/components/ui/button-classes";
 import { BagIcon } from "@/components/ui/Icons";
-import { SHIPPING_NOTE } from "@/config/site";
+import { FREE_SHIPPING_THRESHOLD, SHIPPING_NOTE } from "@/config/site";
 import { formatPrice } from "@/lib/format";
-
-const FREE_SHIPPING_THRESHOLD = 15000;
 
 export function CartView() {
   const { lines, subtotal, itemCount, isReady, setQuantity, removeLine, clearCart } =
@@ -25,30 +23,30 @@ export function CartView() {
     <div className="container">
       <PageHeader
         eyebrow="Checkout"
-        title="Your bag"
+        title="Sua sacola"
         description={
           itemCount > 0
-            ? `${itemCount} ${itemCount === 1 ? "item" : "items"} ready to go.`
-            : "Nothing in the bag yet."
+            ? `${itemCount} ${itemCount === 1 ? "item" : "itens"} para finalizar.`
+            : "Nada na sacola ainda."
         }
       />
 
       {!isReady ? (
-        <p className={styles.loading}>Loading your bag…</p>
+        <p className={styles.loading}>Carregando sua sacola…</p>
       ) : lines.length === 0 ? (
         <div className={styles.empty}>
           <BagIcon className={styles.emptyIcon} />
-          <p className={styles.emptyTitle}>Your bag is empty</p>
+          <p className={styles.emptyTitle}>Sua sacola está vazia</p>
           <p className={styles.emptyBody}>
-            Start with a deck, then build the fit around it.
+            Comece por um shape e monte o resto em volta.
           </p>
-          <Link href="/shop" className={buttonClassName("primary")}>
-            Shop the drop
+          <Link href="/loja" className={buttonClassName("primary")}>
+            Ver a coleção
           </Link>
         </div>
       ) : (
         <div className={styles.layout}>
-          <section aria-label="Items in your bag" className={styles.items}>
+          <section aria-label="Itens da sua sacola" className={styles.items}>
             <ul>
               {lines.map((line) => (
                 <CartLineRow
@@ -62,17 +60,17 @@ export function CartView() {
             </ul>
 
             <div className={styles.itemsFooter}>
-              <Link href="/shop" className={styles.continueLink}>
-                ← Continue shopping
+              <Link href="/loja" className={styles.continueLink}>
+                ← Continuar comprando
               </Link>
               <button type="button" className={styles.clearButton} onClick={clearCart}>
-                Empty bag
+                Esvaziar sacola
               </button>
             </div>
           </section>
 
-          <aside className={styles.summary} aria-label="Order summary">
-            <h2 className={styles.summaryTitle}>Summary</h2>
+          <aside className={styles.summary} aria-label="Resumo do pedido">
+            <h2 className={styles.summaryTitle}>Resumo</h2>
 
             <div className={styles.summaryRow}>
               <span>Subtotal</span>
@@ -80,9 +78,9 @@ export function CartView() {
             </div>
 
             <div className={styles.summaryRow}>
-              <span>Shipping</span>
+              <span>Frete</span>
               <span>
-                {qualifiesForFreeShipping ? "Free" : "Calculated at checkout"}
+                {qualifiesForFreeShipping ? "Grátis" : "Calculado na finalização"}
               </span>
             </div>
 
@@ -98,13 +96,13 @@ export function CartView() {
               className={buttonClassName("primary", styles.checkoutButton)}
               onClick={() => setCheckoutNotice(true)}
             >
-              Checkout
+              Finalizar compra
             </button>
 
             {checkoutNotice && (
               <p className={styles.notice} role="status">
-                This template stops at the cart. Connect a payment provider
-                (Stripe, Shopify, or your own checkout route) to take orders.
+                Este template termina na sacola. Conecte um meio de pagamento
+                (Pix, cartão, Stripe ou seu próprio checkout) para receber pedidos.
               </p>
             )}
           </aside>

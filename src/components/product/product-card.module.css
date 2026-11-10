@@ -52,7 +52,7 @@
 }
 
 .sale {
-  background: var(--color-periwinkle);
+  background: var(--color-sky);
   color: #0b0b0d;
 }
 
@@ -92,11 +92,11 @@
 .quickAdd {
   margin-top: 0.4rem;
   padding-bottom: 0.3rem;
-  border-bottom: 1px solid var(--color-acid);
+  border-bottom: 1px solid var(--color-yellow);
   font-size: 1.05rem;
   font-weight: 700;
   letter-spacing: 0.14em;
-  color: var(--color-acid);
+  color: var(--color-yellow);
   text-transform: uppercase;
   pointer-events: auto;
 }

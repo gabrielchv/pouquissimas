@@ -4,16 +4,16 @@ import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState, type FormEvent } from "react";
 
-import styles from "./login-form.module.css";
+import styles from "./formulario.module.css";
 import { buttonClassName } from "@/components/ui/button-classes";
 import { useAuth } from "./use-auth";
 
 interface LoginFormProps {
-  /** Where to go after a successful sign-in. Sanitised to internal paths. */
+  /** Para onde ir depois do login. Sanitizado para caminhos internos. */
   redirectTo?: string;
 }
 
-export function LoginForm({ redirectTo = "/account" }: LoginFormProps) {
+export function LoginForm({ redirectTo = "/conta" }: LoginFormProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const { signIn } = useAuth();
@@ -53,7 +53,7 @@ export function LoginForm({ redirectTo = "/account" }: LoginFormProps) {
     <form className={styles.form} onSubmit={handleSubmit} noValidate>
       <div className={styles.field}>
         <label htmlFor="email" className={styles.label}>
-          Email
+          E-mail
         </label>
         <input
           id="email"
@@ -64,13 +64,13 @@ export function LoginForm({ redirectTo = "/account" }: LoginFormProps) {
           className={styles.input}
           value={email}
           onChange={(event) => setEmail(event.target.value)}
-          placeholder="you@example.com"
+          placeholder="voce@exemplo.com"
         />
       </div>
 
       <div className={styles.field}>
         <label htmlFor="password" className={styles.label}>
-          Password
+          Senha
         </label>
         <input
           id="password"
@@ -96,31 +96,31 @@ export function LoginForm({ redirectTo = "/account" }: LoginFormProps) {
         className={buttonClassName("primary", styles.submit)}
         disabled={isSubmitting}
       >
-        {isSubmitting ? "Signing in…" : "Log in"}
+        {isSubmitting ? "Entrando…" : "Entrar"}
       </button>
 
       <div className={styles.helper}>
         <button type="button" className={styles.demoButton} onClick={fillDemoAccount}>
-          Fill demo credentials
+          Preencher dados de demonstração
         </button>
         <p className={styles.demoHint}>
-          This template ships with a front-end only account:{" "}
+          Este template tem uma conta apenas no navegador:{" "}
           <code>demo@example.com</code> / <code>skate123</code>
         </p>
       </div>
 
       <p className={styles.footer}>
-        No account yet?{" "}
-        <Link href="/info/contact" className={styles.footerLink}>
-          Get in touch
+        Ainda não tem conta?{" "}
+        <Link href="/info/contato" className={styles.footerLink}>
+          Fale com a gente
         </Link>{" "}
-        and we will set one up.
+        e criamos uma para você.
       </p>
     </form>
   );
 }
 
-/** Only allow same-site paths, so `?next=` cannot be used as an open redirect. */
+/** Só aceita caminhos do próprio site, para `?next=` não virar redirect aberto. */
 function safeRedirect(value: string | null): string | null {
   if (!value) return null;
   if (!value.startsWith("/") || value.startsWith("//")) return null;

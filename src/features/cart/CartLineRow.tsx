@@ -28,7 +28,7 @@ export function CartLineRow({
   return (
     <li className={[styles.row, styles[variant]].join(" ")}>
       <Link
-        href={`/products/${product.slug}`}
+        href={`/produtos/${product.slug}`}
         className={styles.media}
         onClick={onNavigate}
         tabIndex={-1}
@@ -46,7 +46,7 @@ export function CartLineRow({
       <div className={styles.details}>
         <div className={styles.headingRow}>
           <Link
-            href={`/products/${product.slug}`}
+            href={`/produtos/${product.slug}`}
             className={styles.name}
             onClick={onNavigate}
           >
@@ -56,15 +56,15 @@ export function CartLineRow({
         </div>
 
         <p className={styles.meta}>
-          {product.colorway} · SIZE {size}
+          {product.colorway} · TAM. {size}
         </p>
-        <p className={styles.unitPrice}>{formatPrice(product.price)} each</p>
+        <p className={styles.unitPrice}>{formatPrice(product.price)} cada</p>
 
         <div className={styles.controls}>
           <QuantityStepper
             value={quantity}
             onChange={(next) => onQuantityChange(key, next)}
-            label={`Quantity for ${product.name}`}
+            label={`Quantidade de ${product.name}`}
           />
 
           <button
@@ -72,7 +72,7 @@ export function CartLineRow({
             className={styles.remove}
             onClick={() => onRemove(key)}
           >
-            Remove
+            Remover
           </button>
         </div>
       </div>

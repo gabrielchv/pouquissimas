@@ -1,17 +1,17 @@
-/** Domain types shared by the storefront, cart and checkout surfaces. */
+/** Tipos de domínio compartilhados entre a loja, a sacola e o checkout. */
 
 export type CollectionId =
-  | "decks"
-  | "tees"
-  | "tops"
-  | "headwear"
-  | "accessories";
+  | "shapes"
+  | "camisetas"
+  | "moletons"
+  | "bones"
+  | "acessorios";
 
 export interface Collection {
   id: CollectionId;
-  /** Uppercase label used in navigation and filter chips. */
+  /** Rótulo em maiúsculas usado na navegação e nos filtros. */
   label: string;
-  /** Short line shown on the shop page. */
+  /** Linha curta exibida na página da loja. */
   blurb: string;
 }
 
@@ -20,13 +20,13 @@ export interface Product {
   slug: string;
   name: string;
   collection: CollectionId;
-  /** Price in cents. Never use floats for money. */
+  /** Preço em centavos. Nunca use float para dinheiro. */
   price: number;
-  /** Original price in cents, when the item is discounted. */
+  /** Preço original em centavos, quando o item está em promoção. */
   compareAtPrice?: number;
-  /** Path under /public. Swap these files to use real photography. */
+  /** Caminho dentro de /public. Troque o arquivo para usar foto real. */
   image: string;
-  /** Optional secondary photo revealed on hover. */
+  /** Foto secundária opcional, revelada no hover. */
   hoverImage?: string;
   colorway: string;
   sizes: string[];
@@ -36,7 +36,7 @@ export interface Product {
 }
 
 export interface CartLine {
-  /** `${productId}:${size}` — stable key for reducers and storage. */
+  /** `${productId}:${size}` — chave estável para o reducer e o storage. */
   key: string;
   productId: string;
   size: string;

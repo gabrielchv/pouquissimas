@@ -24,9 +24,9 @@ export function ProductCard({ product, priority = false }: ProductCardProps) {
     >
       <div className={styles.mediaWrap}>
         <Link
-          href={`/products/${product.slug}`}
+          href={`/produtos/${product.slug}`}
           className={styles.mediaLink}
-          aria-label={`${product.name}, ${product.compareAtPrice ? "on sale" : "shop now"}`}
+          aria-label={`${product.name}, ${product.compareAtPrice ? "em promoção" : "ver produto"}`}
         >
           <Image
             src={product.image}
@@ -52,15 +52,15 @@ export function ProductCard({ product, priority = false }: ProductCardProps) {
         {(product.soldOut || product.compareAtPrice) && (
           <div className={styles.badges}>
             {product.soldOut ? (
-              <span className={styles.soldOut}>SOLD OUT</span>
+              <span className={styles.soldOut}>ESGOTADO</span>
             ) : (
-              <span className={styles.sale}>SALE</span>
+              <span className={styles.sale}>PROMO</span>
             )}
           </div>
         )}
 
         <div className={styles.overlay}>
-          <Link href={`/products/${product.slug}`} className={styles.overlayName}>
+          <Link href={`/produtos/${product.slug}`} className={styles.overlayName}>
             {product.name}
           </Link>
           <Price price={product.price} compareAtPrice={product.compareAtPrice} />
@@ -72,25 +72,25 @@ export function ProductCard({ product, priority = false }: ProductCardProps) {
                 className={styles.quickAdd}
                 onClick={(event) => {
                   event.preventDefault();
-                  addItem(product, product.sizes[0] ?? "ONE SIZE");
+                  addItem(product, product.sizes[0] ?? "ÚNICO");
                 }}
               >
-                Quick add
+                Compra rápida
               </button>
             ) : (
-              <Link href={`/products/${product.slug}`} className={styles.quickAdd}>
-                Select options
+              <Link href={`/produtos/${product.slug}`} className={styles.quickAdd}>
+                Escolher tamanho
               </Link>
             ))}
         </div>
       </div>
 
       <div className={styles.meta}>
-        <Link href={`/products/${product.slug}`} className={styles.name}>
+        <Link href={`/produtos/${product.slug}`} className={styles.name}>
           {product.name}
         </Link>
         <Price price={product.price} compareAtPrice={product.compareAtPrice} />
-        {product.soldOut && <span className={styles.soldOutLabel}>Sold out</span>}
+        {product.soldOut && <span className={styles.soldOutLabel}>Esgotado</span>}
       </div>
     </article>
   );

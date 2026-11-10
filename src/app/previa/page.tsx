@@ -1,23 +1,23 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import styles from "./preview.module.css";
+import styles from "./previa.module.css";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { buttonClassName } from "@/components/ui/button-classes";
 import { getAllProducts } from "@/lib/catalog";
 
-export const metadata = { title: "Preview" };
+export const metadata = { title: "Prévia" };
 
-/** A lookbook grid built from the same catalogue imagery. */
-export default function PreviewPage() {
+/** Lookbook montado com as imagens do mesmo catálogo. */
+export default function PreviaPage() {
   const looks = getAllProducts().slice(0, 6);
 
   return (
     <div className="container">
       <PageHeader
-        eyebrow="Fall 26 · Lookbook"
-        title="Preview"
-        description="A first look at the season before it lands in the shop. Photography is placeholder until the real shoot is back from the lab."
+        eyebrow="Verão 26 · Lookbook"
+        title="Prévia"
+        description="Um primeiro olhar da temporada antes de chegar na loja. As fotos são provisórias até o ensaio oficial ficar pronto."
       />
 
       <div className={styles.grid}>
@@ -43,10 +43,10 @@ export default function PreviewPage() {
 
       <div className={styles.cta}>
         <p className={styles.ctaText}>
-          The full range drops soon. Until then, the current collection is live.
+          A coleção completa chega em breve. Até lá, a linha atual está na loja.
         </p>
-        <Link href="/shop" className={buttonClassName("primary")}>
-          Shop the collection
+        <Link href="/loja" className={buttonClassName("primary")}>
+          Ver a coleção
         </Link>
       </div>
     </div>

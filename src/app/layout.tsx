@@ -11,14 +11,15 @@ import { CartDrawer } from "@/features/cart/CartDrawer";
 import { CartProvider } from "@/features/cart/cart-context";
 
 const figtree = Figtree({
-  subsets: ["latin"],
+  // latin-ext inclui os acentos do português (Ã, Ç, Õ, É).
+  subsets: ["latin", "latin-ext"],
   weight: ["400", "500", "600", "700", "800"],
   variable: "--font-figtree",
   display: "swap",
 });
 
 const oswald = Oswald({
-  subsets: ["latin"],
+  subsets: ["latin", "latin-ext"],
   weight: ["400", "500", "600"],
   variable: "--font-oswald",
   display: "swap",
@@ -26,14 +27,15 @@ const oswald = Oswald({
 
 export const metadata: Metadata = {
   title: {
-    default: `${SITE.name} — Skateboarding`,
+    default: `${SITE.name} — Skate`,
     template: `%s — ${SITE.name}`,
   },
   description: SITE.description,
   openGraph: {
-    title: `${SITE.name} — Skateboarding`,
+    title: `${SITE.name} — Skate`,
     description: SITE.description,
     type: "website",
+    locale: "pt_BR",
   },
 };
 
@@ -41,11 +43,11 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${figtree.variable} ${oswald.variable}`}>
+    <html lang="pt-BR" className={`${figtree.variable} ${oswald.variable}`}>
       <body>
         <CartProvider>
           <a href="#main" className="skip-link">
-            Skip to content
+            Ir para o conteúdo
           </a>
 
           <AmbientBackground />

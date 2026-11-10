@@ -74,7 +74,7 @@
 }
 
 .signOut:hover {
-  color: var(--color-rust);
+  color: var(--color-red);
 }
 
 @media (min-width: 750px) {

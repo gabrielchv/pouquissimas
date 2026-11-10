@@ -13,7 +13,7 @@ export default function NotFound() {
           textTransform: "uppercase",
         }}
       >
-        Rolled away
+        Essa página não existe
       </h1>
       <p
         style={{
@@ -22,10 +22,10 @@ export default function NotFound() {
           color: "var(--text-tertiary)",
         }}
       >
-        That page does not exist — it may have sold out or moved.
+        O endereço pode ter mudado ou a peça saiu de linha.
       </p>
-      <Link href="/shop" className={buttonClassName("primary")}>
-        Back to the shop
+      <Link href="/loja" className={buttonClassName("primary")}>
+        Voltar para a loja
       </Link>
     </div>
   );

@@ -27,11 +27,11 @@ CONTENT_RATIO = 0.9  # how much of the square the artwork should fill
 
 INK = (13, 13, 15, 255)
 BONE = (239, 236, 227, 255)
-ACID = (227, 252, 2, 255)
-PERIWINKLE = (134, 134, 207, 255)
+AMARELO = (245, 208, 46, 255)   # amarelo do carro da marca
+AZUL = (90, 169, 221, 255)      # azul do céu
+VERMELHO = (193, 39, 45, 255)   # vermelho do guará
 OLIVE = (59, 64, 50, 255)
 PLUM = (74, 44, 70, 255)
-RUST = (176, 78, 46, 255)
 
 FONT_BOLD = "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"
 FONT_CONDENSED = "/usr/share/fonts/truetype/dejavu/DejaVuSansCondensed-Bold.ttf"
@@ -211,7 +211,7 @@ def motif_stripes(draw: ScaledDraw, colour) -> None:
 
 
 def motif_word(draw: ScaledDraw, colour) -> None:
-    draw.multiline_text((500, 640), "PLACE\nHOLDER", 62, colour, spacing=14)
+    draw.multiline_text((500, 640), "IMAGEM\nPROVISÓRIA", 44, colour, spacing=12)
 
 
 def motif_rings(draw: ScaledDraw, colour) -> None:
@@ -295,7 +295,7 @@ def build_product(shape: str, motif: str, colour, motif_colour) -> Image.Image:
     # -- caption so nobody mistakes a placeholder for real artwork -------- #
     caption = Image.new("RGBA", (CANVAS, CANVAS), (0, 0, 0, 0))
     ScaledDraw(caption, SUPERSAMPLE).text(
-        (500, 962), "P L A C E H O L D E R", 26, (255, 255, 255, 190)
+        (500, 962), "I M A G E M   P R O V I S Ó R I A", 20, (255, 255, 255, 190)
     )
     product = Image.alpha_composite(product, caption)
 
@@ -316,21 +316,21 @@ def build_product(shape: str, motif: str, colour, motif_colour) -> Image.Image:
 
 # (filename, shape, motif, garment colour, print colour)
 PRODUCTS = [
-    ("deck-01", "deck", "crosshair", INK, ACID),
+    ("deck-01", "deck", "crosshair", INK, AMARELO),
     ("deck-02", "deck", "checker", BONE, OLIVE),
     ("deck-03", "deck", "rings", PLUM, BONE),
-    ("tee-01", "tee", "crosshair", INK, ACID),
-    ("tee-02", "tee", "target", BONE, RUST),
-    ("tee-03", "tee", "word", INK, PERIWINKLE),
+    ("tee-01", "tee", "crosshair", INK, AMARELO),
+    ("tee-02", "tee", "target", BONE, VERMELHO),
+    ("tee-03", "tee", "word", INK, AZUL),
     ("tee-04", "tee", "stripes", BONE, INK),
-    ("longsleeve-01", "longsleeve", "target", INK, ACID),
+    ("longsleeve-01", "longsleeve", "target", INK, AMARELO),
     ("longsleeve-02", "longsleeve", "stripes", OLIVE, BONE),
-    ("hoodie-01", "hoodie", "rings", INK, PERIWINKLE),
+    ("hoodie-01", "hoodie", "rings", INK, AZUL),
     ("hoodie-02", "hoodie", "word", BONE, INK),
-    ("cap-01", "cap", "crosshair", INK, ACID),
+    ("cap-01", "cap", "crosshair", INK, AMARELO),
     ("cap-02", "cap", "word", OLIVE, BONE),
     ("beanie-01", "beanie", "stripes", PLUM, BONE),
-    ("beanie-02", "beanie", "checker", INK, ACID),
+    ("beanie-02", "beanie", "checker", INK, AMARELO),
     ("hardware-01", "hardware", "rings", BONE, INK),
 ]
 

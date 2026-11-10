@@ -40,7 +40,7 @@ export function ProductGallery({ images }: ProductGalleryProps) {
                   index === activeIndex ? styles.thumbActive : "",
                 ].join(" ")}
                 onClick={() => setActiveIndex(index)}
-                aria-label={`View image ${index + 1}`}
+                aria-label={`Ver imagem ${index + 1}`}
                 aria-pressed={index === activeIndex}
               >
                 <Image

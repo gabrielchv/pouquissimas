@@ -17,7 +17,7 @@ interface ProductPurchasePanelProps {
 
 export function ProductPurchasePanel({ product }: ProductPurchasePanelProps) {
   const { addItem } = useCart();
-  const [size, setSize] = useState(product.sizes[0] ?? "ONE SIZE");
+  const [size, setSize] = useState(product.sizes[0] ?? "ÚNICO");
   const [quantity, setQuantity] = useState(1);
   const [justAdded, setJustAdded] = useState(false);
 
@@ -44,9 +44,9 @@ export function ProductPurchasePanel({ product }: ProductPurchasePanelProps) {
 
       <fieldset className={styles.fieldset}>
         <legend className={styles.legend}>
-          Size
+          Tamanho
           <span className={styles.legendHint}>
-            {product.sizes.length === 1 ? "One size" : "True to size"}
+            {product.sizes.length === 1 ? "Tamanho único" : "Tamanho normal"}
           </span>
         </legend>
 
@@ -70,7 +70,7 @@ export function ProductPurchasePanel({ product }: ProductPurchasePanelProps) {
         <QuantityStepper
           value={quantity}
           onChange={setQuantity}
-          label={`Quantity for ${product.name}`}
+          label={`Quantidade de ${product.name}`}
         />
 
         <button
@@ -79,27 +79,27 @@ export function ProductPurchasePanel({ product }: ProductPurchasePanelProps) {
           onClick={handleAddToCart}
           disabled={product.soldOut}
         >
-          {product.soldOut ? "Sold out" : justAdded ? "Added to bag" : "Add to bag"}
+          {product.soldOut ? "Esgotado" : justAdded ? "Na sacola" : "Adicionar"}
         </button>
       </div>
 
       <p className={styles.shipping}>{SHIPPING_NOTE}</p>
 
       <div className={styles.details}>
-        <h2 className={styles.detailsTitle}>Details</h2>
+        <h2 className={styles.detailsTitle}>Detalhes</h2>
         <p className={styles.description}>{product.description}</p>
 
         <dl className={styles.specs}>
           <div className={styles.spec}>
-            <dt>Colourway</dt>
+            <dt>Cor</dt>
             <dd>{product.colorway}</dd>
           </div>
           <div className={styles.spec}>
-            <dt>Category</dt>
+            <dt>Categoria</dt>
             <dd>{collectionLabel(product.collection)}</dd>
           </div>
           <div className={styles.spec}>
-            <dt>Sizes</dt>
+            <dt>Tamanhos</dt>
             <dd>{product.sizes.join(" / ")}</dd>
           </div>
         </dl>

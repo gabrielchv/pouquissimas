@@ -26,7 +26,7 @@ export function QuantityStepper({
         className={styles.control}
         onClick={() => onChange(value - 1)}
         disabled={value <= min}
-        aria-label="Decrease quantity"
+        aria-label="Diminuir quantidade"
       >
         <MinusIcon />
       </button>
@@ -40,7 +40,7 @@ export function QuantityStepper({
         className={styles.control}
         onClick={() => onChange(value + 1)}
         disabled={value >= max}
-        aria-label="Increase quantity"
+        aria-label="Aumentar quantidade"
       >
         <PlusIcon />
       </button>

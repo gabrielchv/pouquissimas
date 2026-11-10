@@ -65,7 +65,7 @@ export function SiteHeader() {
             type="button"
             className={styles.menuButton}
             onClick={() => setIsMenuOpen(true)}
-            aria-label="Open menu"
+            aria-label="Abrir menu"
             aria-expanded={isMenuOpen}
           >
             <MenuIcon />
@@ -75,7 +75,7 @@ export function SiteHeader() {
             <Logo />
           </div>
 
-          <nav className={styles.nav} aria-label="Main">
+          <nav className={styles.nav} aria-label="Principal">
             <ul className={styles.navList}>
               {PRIMARY_NAV.map((item) =>
                 item.hasMenu ? (
@@ -107,14 +107,14 @@ export function SiteHeader() {
                     >
                       <ul className={styles.dropdownList}>
                         <li>
-                          <Link href="/shop" className={styles.dropdownLink}>
+                          <Link href="/loja" className={styles.dropdownLink}>
                             ALL
                           </Link>
                         </li>
                         {COLLECTIONS.map((collection) => (
                           <li key={collection.id}>
                             <Link
-                              href={`/shop?collection=${collection.id}`}
+                              href={`/loja?colecao=${collection.id}`}
                               className={styles.dropdownLink}
                             >
                               {collection.label}
@@ -144,10 +144,10 @@ export function SiteHeader() {
 
           <div className={styles.actions}>
             <Link
-              href={user ? "/account" : "/login"}
+              href={user ? "/conta" : "/entrar"}
               className={styles.iconButton}
-              aria-label={user ? `Account: ${user.name}` : "Log in"}
-              title={user ? "Account" : "Log in"}
+              aria-label={user ? `Conta de ${user.name}` : "Entrar"}
+              title={user ? "Minha conta" : "Entrar"}
             >
               <AccountIcon />
             </Link>
@@ -157,7 +157,7 @@ export function SiteHeader() {
               className={styles.iconButton}
               onClick={openCart}
               aria-label={
-                itemCount > 0 ? `Cart, ${itemCount} items` : "Cart, empty"
+                itemCount > 0 ? `Sacola, ${itemCount} itens` : "Sacola, vazia"
               }
             >
               <BagIcon />

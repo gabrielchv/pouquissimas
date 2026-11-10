@@ -39,7 +39,7 @@
 }
 
 .clearButton:hover {
-  color: var(--color-rust);
+  color: var(--color-red);
 }
 
 .summary {
@@ -99,7 +99,7 @@
 .notice {
   margin-top: 1.2rem;
   padding: 1rem 1.2rem;
-  border-left: 2px solid var(--color-acid);
+  border-left: 2px solid var(--color-yellow);
   font-size: 1.15rem;
   line-height: 1.5;
   color: var(--text-secondary);

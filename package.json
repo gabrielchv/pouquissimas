@@ -1,15 +1,16 @@
 {
-  "name": "skate-shop",
+  "name": "pouquissimas",
   "version": "0.1.0",
   "private": true,
-  "description": "Storefront template for a skateboarding brand, modelled on a Shopify-style deck/streetwear shop.",
+  "description": "Loja virtual da POUQUÍSSIMAS — Next.js, português e preços em BRL.",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
     "typecheck": "tsc --noEmit",
-    "placeholders": "python3 scripts/generate_placeholders.py"
+    "placeholders": "python3 scripts/generate_placeholders.py",
+    "brand-assets": "python3 scripts/import_brand_assets.py"
   },
   "dependencies": {
     "next": "16.4.6",

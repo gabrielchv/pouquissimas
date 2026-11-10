@@ -11,12 +11,12 @@ import type { SessionUser } from "@/lib/types";
  * handler...) and keep the same snapshot contract, so no component changes.
  */
 
-const SESSION_KEY = "skate-shop.session.v1";
+const SESSION_KEY = "pouquissimas.session.v1";
 
 const DEMO_ACCOUNT = {
   email: "demo@example.com",
   password: "skate123",
-  name: "Demo Rider",
+  name: "Cliente Demo",
 } as const;
 
 export type AuthResult = { ok: true } | { ok: false; error: string };
@@ -69,7 +69,7 @@ export async function signIn(email: string, password: string): Promise<AuthResul
   const normalisedEmail = email.trim().toLowerCase();
 
   if (normalisedEmail !== DEMO_ACCOUNT.email || password !== DEMO_ACCOUNT.password) {
-    return { ok: false, error: "That email and password combination is not right." };
+    return { ok: false, error: "E-mail ou senha incorretos." };
   }
 
   const session: SessionUser = {

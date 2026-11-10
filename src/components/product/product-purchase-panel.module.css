@@ -75,8 +75,8 @@
 }
 
 .sizeActive {
-  border-color: var(--color-acid);
-  color: var(--color-acid);
+  border-color: var(--color-yellow);
+  color: var(--color-yellow);
 }
 
 .size:disabled {

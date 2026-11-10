@@ -27,7 +27,7 @@ export function Price({
       {onSale && (
         <>
           <s className={styles.compareAt}>{formatPrice(compareAtPrice)}</s>
-          <span className="visually-hidden">, reduced from {formatPrice(compareAtPrice)}</span>
+          <span className="visually-hidden">, reduzido de {formatPrice(compareAtPrice)}</span>
         </>
       )}
 

@@ -9,7 +9,7 @@ import { ProductPurchasePanel } from "@/components/product/ProductPurchasePanel"
 import { SectionHeading } from "@/components/product/SectionHeading";
 import { getAllProducts, getProductBySlug, getRelatedProducts } from "@/lib/catalog";
 
-interface ProductPageProps {
+interface ProdutoPageProps {
   params: Promise<{ slug: string }>;
 }
 
@@ -17,11 +17,11 @@ export function generateStaticParams() {
   return getAllProducts().map((product) => ({ slug: product.slug }));
 }
 
-export async function generateMetadata({ params }: ProductPageProps): Promise<Metadata> {
+export async function generateMetadata({ params }: ProdutoPageProps): Promise<Metadata> {
   const { slug } = await params;
   const product = getProductBySlug(slug);
 
-  if (!product) return { title: "Product not found" };
+  if (!product) return { title: "Produto não encontrado" };
 
   return {
     title: product.name,
@@ -29,7 +29,7 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
   };
 }
 
-export default async function ProductPage({ params }: ProductPageProps) {
+export default async function ProdutoPage({ params }: ProdutoPageProps) {
   const { slug } = await params;
   const product = getProductBySlug(slug);
 
@@ -38,7 +38,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
   const galleryImages = [
     { src: product.image, alt: product.name },
     ...(product.hoverImage
-      ? [{ src: product.hoverImage, alt: `${product.name}, alternate view` }]
+      ? [{ src: product.hoverImage, alt: `${product.name}, outra vista` }]
       : []),
   ];
 
@@ -46,13 +46,13 @@ export default async function ProductPage({ params }: ProductPageProps) {
 
   return (
     <div className="container">
-      <nav className={styles.breadcrumbs} aria-label="Breadcrumb">
+      <nav className={styles.breadcrumbs} aria-label="Você está aqui">
         <Link href="/" className={styles.crumb}>
-          Home
+          Início
         </Link>
         <span aria-hidden="true">/</span>
-        <Link href="/shop" className={styles.crumb}>
-          Shop
+        <Link href="/loja" className={styles.crumb}>
+          Loja
         </Link>
         <span aria-hidden="true">/</span>
         <span className={styles.crumbCurrent}>{product.name}</span>
@@ -63,11 +63,11 @@ export default async function ProductPage({ params }: ProductPageProps) {
         <ProductPurchasePanel product={product} />
       </div>
 
-      <section className={styles.related} aria-labelledby="related-title">
+      <section className={styles.related} aria-labelledby="relacionados">
         <SectionHeading
-          id="related-title"
-          eyebrow="Keep looking"
-          title="You might also like"
+          id="relacionados"
+          eyebrow="Continue olhando"
+          title="Você também pode gostar"
         />
         <ProductGrid products={related} priorityCount={0} />
       </section>

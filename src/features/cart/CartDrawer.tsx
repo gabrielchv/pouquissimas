@@ -84,14 +84,14 @@ export function CartDrawer() {
       >
         <header className={styles.header}>
           <h2 id="cart-drawer-title" className={styles.title}>
-            Your Bag{itemCount > 0 && <span className={styles.count}> ({itemCount})</span>}
+            Sua sacola{itemCount > 0 && <span className={styles.count}> ({itemCount})</span>}
           </h2>
           <button
             ref={closeButtonRef}
             type="button"
             className={styles.closeButton}
             onClick={closeCart}
-            aria-label="Close cart"
+            aria-label="Fechar sacola"
           >
             <CloseIcon />
           </button>
@@ -100,16 +100,16 @@ export function CartDrawer() {
         {lines.length === 0 ? (
           <div className={styles.empty}>
             <BagIcon className={styles.emptyIcon} />
-            <p className={styles.emptyTitle}>Your bag is empty.</p>
+            <p className={styles.emptyTitle}>Sua sacola está vazia.</p>
             <p className={styles.emptyBody}>
-              Decks, tees and hardware are one click away.
+              Shapes, camisetas e parafusos estão a um clique.
             </p>
             <Link
-              href="/shop"
+              href="/loja"
               className={buttonClassName("primary")}
               onClick={closeCart}
             >
-              Shop the drop
+              Ver a coleção
             </Link>
           </div>
         ) : (
@@ -133,17 +133,17 @@ export function CartDrawer() {
                 <span className={styles.subtotal}>{formatPrice(subtotal)}</span>
               </div>
               <p className={styles.note}>
-                {SITE.announcement}. Taxes calculated at checkout.
+                {SITE.announcement}. Impostos calculados na finalização.
               </p>
               <Link
-                href="/cart"
+                href="/sacola"
                 className={buttonClassName("primary", styles.checkout)}
                 onClick={closeCart}
               >
-                View bag &amp; checkout
+                Ver sacola e finalizar
               </Link>
               <button type="button" className={styles.continue} onClick={closeCart}>
-                Continue shopping
+                Continuar comprando
               </button>
             </footer>
           </>

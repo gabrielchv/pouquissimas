@@ -12,7 +12,7 @@ export function ProductGrid({ products, priorityCount = 4 }: ProductGridProps) {
   if (products.length === 0) {
     return (
       <p className={styles.empty}>
-        Nothing here yet. Check back next drop.
+        Nada por aqui ainda. Volte na próxima leva.
       </p>
     );
   }

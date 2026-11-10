@@ -1,41 +1,41 @@
 import type { Collection, CollectionId } from "@/lib/types";
 
 /**
- * The only tabs the brief allows: SHOP, VIDEO, SALE, PREVIEW.
- * SHOP opens a small collection menu; everything else is a single link.
+ * As quatro abas permitidas: LOJA, VÍDEO, PROMOÇÕES e PRÉVIA.
+ * LOJA abre um menu com as coleções; as demais são links diretos.
  */
 export const PRIMARY_NAV = [
-  { label: "SHOP", href: "/shop", hasMenu: true },
-  { label: "VIDEO", href: "/video", hasMenu: false },
-  { label: "SALE", href: "/sale", hasMenu: false },
-  { label: "PREVIEW", href: "/preview", hasMenu: false },
+  { label: "LOJA", href: "/loja", hasMenu: true },
+  { label: "VÍDEO", href: "/video", hasMenu: false },
+  { label: "PROMOÇÕES", href: "/promocoes", hasMenu: false },
+  { label: "PRÉVIA", href: "/previa", hasMenu: false },
 ] as const;
 
 export const COLLECTIONS: Collection[] = [
   {
-    id: "decks",
-    label: "DECKS",
-    blurb: "Pressed for the street, the park, and everything between.",
+    id: "shapes",
+    label: "SHAPES",
+    blurb: "Prensados para a rua, a pista e tudo no meio.",
   },
   {
-    id: "tees",
-    label: "T-SHIRTS",
-    blurb: "Heavyweight cotton, screen printed in small runs.",
+    id: "camisetas",
+    label: "CAMISETAS",
+    blurb: "Algodão pesado, estampado em tiragens pequenas.",
   },
   {
-    id: "tops",
-    label: "TOPS",
-    blurb: "Long sleeves and hoods for the cold months.",
+    id: "moletons",
+    label: "MOLETONS",
+    blurb: "Manga longa e moletom para os dias de frio.",
   },
   {
-    id: "headwear",
-    label: "HEADWEAR",
-    blurb: "Caps and beanies built to be skated in.",
+    id: "bones",
+    label: "BONÉS",
+    blurb: "Bonés e toucas feitos para andar de skate.",
   },
   {
-    id: "accessories",
-    label: "ACCESSORIES",
-    blurb: "Hardware and the small things that keep you rolling.",
+    id: "acessorios",
+    label: "ACESSÓRIOS",
+    blurb: "Parafusos e as peças pequenas que mantêm tudo rodando.",
   },
 ];
 

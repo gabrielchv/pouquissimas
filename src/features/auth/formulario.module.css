@@ -40,12 +40,12 @@
 
 .input:focus {
   outline: none;
-  border-color: var(--color-acid);
+  border-color: var(--color-yellow);
 }
 
 .error {
   padding: 1rem 1.2rem;
-  border-left: 2px solid var(--color-rust);
+  border-left: 2px solid var(--color-red);
   font-size: 1.2rem;
   color: #e8b7a6;
 }
@@ -63,7 +63,7 @@
   font-size: 1.05rem;
   font-weight: 700;
   letter-spacing: 0.12em;
-  color: var(--color-acid);
+  color: var(--color-yellow);
   text-transform: uppercase;
   text-decoration: underline;
   text-underline-offset: 0.4rem;
@@ -94,5 +94,5 @@
 }
 
 .footerLink:hover {
-  color: var(--color-acid);
+  color: var(--color-yellow);
 }

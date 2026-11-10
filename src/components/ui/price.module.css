@@ -1,7 +1,9 @@
 .price {
   display: flex;
+  /* Em telas estreitas o preço antigo pode passar da largura do card. */
+  flex-wrap: wrap;
   align-items: baseline;
-  gap: 0.8rem;
+  gap: 0.2rem 0.8rem;
   font-family: var(--font-body);
   font-weight: 500;
   letter-spacing: 0.04em;
@@ -22,7 +24,7 @@
 }
 
 .salePrice {
-  color: var(--color-periwinkle);
+  color: var(--color-sky);
 }
 
 .compareAt {
@@ -32,7 +34,7 @@
 }
 
 .discount {
-  color: var(--color-acid);
+  color: var(--color-yellow);
   font-size: 1.1rem;
   font-weight: 700;
   letter-spacing: 0.08em;

@@ -14,18 +14,18 @@ export function AccountView() {
   const { user, isReady, signOut } = useAuth();
   const [isSigningOut, setIsSigningOut] = useState(false);
 
-  // Client-side guard. A real deployment would also protect the route on the server.
-  // `isSigningOut` stops the guard from racing the deliberate redirect to home.
+  // Proteção no cliente. Em produção, proteja a rota também no servidor.
+  // `isSigningOut` evita que a proteção brigue com o redirect proposital para a home.
   useEffect(() => {
     if (isReady && !user && !isSigningOut) {
-      router.replace("/login?next=/account");
+      router.replace("/entrar?next=/conta");
     }
   }, [isReady, user, isSigningOut, router]);
 
   if (!isReady) {
     return (
       <div className="container">
-        <p className={styles.loading}>Checking your session…</p>
+        <p className={styles.loading}>Verificando sua sessão…</p>
       </div>
     );
   }
@@ -33,7 +33,7 @@ export function AccountView() {
   if (!user) {
     return (
       <div className="container">
-        <p className={styles.loading}>Redirecting to log in…</p>
+        <p className={styles.loading}>Redirecionando para o login…</p>
       </div>
     );
   }
@@ -41,36 +41,36 @@ export function AccountView() {
   return (
     <div className="container">
       <PageHeader
-        eyebrow="Account"
-        title={`Hi, ${user.name.split(" ")[0]}`}
+        eyebrow="Minha conta"
+        title={`Olá, ${user.name.split(" ")[0]}`}
         description={user.email}
       />
 
       <div className={styles.grid}>
         <section className={styles.card}>
-          <h2 className={styles.cardTitle}>Orders</h2>
+          <h2 className={styles.cardTitle}>Pedidos</h2>
           <p className={styles.cardBody}>
-            No orders yet. When you place one it will show up here with tracking.
+            Nenhum pedido ainda. Quando você fizer um, ele aparece aqui com o rastreio.
           </p>
-          <Link href="/shop" className={buttonClassName("secondary", styles.cardAction)}>
-            Start shopping
+          <Link href="/loja" className={buttonClassName("secondary", styles.cardAction)}>
+            Começar a comprar
           </Link>
         </section>
 
         <section className={styles.card}>
-          <h2 className={styles.cardTitle}>Details</h2>
+          <h2 className={styles.cardTitle}>Dados</h2>
           <dl className={styles.details}>
             <div className={styles.detailRow}>
-              <dt>Name</dt>
+              <dt>Nome</dt>
               <dd>{user.name}</dd>
             </div>
             <div className={styles.detailRow}>
-              <dt>Email</dt>
+              <dt>E-mail</dt>
               <dd>{user.email}</dd>
             </div>
             <div className={styles.detailRow}>
-              <dt>Address</dt>
-              <dd>Not saved yet</dd>
+              <dt>Endereço</dt>
+              <dd>Ainda não salvo</dd>
             </div>
           </dl>
 
@@ -83,7 +83,7 @@ export function AccountView() {
               router.replace("/");
             }}
           >
-            Sign out
+            Sair
           </button>
         </section>
       </div>

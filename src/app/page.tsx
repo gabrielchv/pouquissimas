@@ -14,33 +14,33 @@ import {
 
 export default function HomePage() {
   const latest = getNewArrivals(8);
-  const decks = getProductsByCollection("decks");
+  const shapes = getProductsByCollection("shapes");
   const onSale = getSaleProducts().slice(0, 4);
 
   return (
     <div className={styles.home}>
-      <section className={`container ${styles.section}`} aria-labelledby="latest-title">
+      <section className={`container ${styles.section}`} aria-labelledby="novidades">
         <SectionHeading
-          id="latest-title"
-          eyebrow="New season"
-          title="Latest drop"
-          description="Fresh decks and heavyweight cotton, printed in small runs."
-          action={{ label: "Shop all", href: "/shop" }}
+          id="novidades"
+          eyebrow="Nova temporada"
+          title="Últimos lançamentos"
+          description="Shapes novos e algodão pesado, estampado em tiragens pequenas."
+          action={{ label: "Ver tudo", href: "/loja" }}
         />
         <ProductGrid products={latest} />
       </section>
 
-      <section className={`container ${styles.section}`} aria-labelledby="decks-title">
+      <section className={`container ${styles.section}`} aria-labelledby="shapes">
         <SectionHeading
-          id="decks-title"
-          eyebrow="Seven-ply maple"
-          title="Decks"
-          action={{ label: "All decks", href: "/shop?collection=decks" }}
+          id="shapes"
+          eyebrow="Sete lâminas de bordo"
+          title="Shapes"
+          action={{ label: "Todos os shapes", href: "/loja?colecao=shapes" }}
         />
-        <ProductGrid products={decks} priorityCount={0} />
+        <ProductGrid products={shapes} priorityCount={0} />
       </section>
 
-      <section className={`container ${styles.section}`} aria-labelledby="video-title">
+      <section className={`container ${styles.section}`} aria-labelledby="video">
         <Link href="/video" className={styles.videoBand}>
           <video
             className={styles.video}
@@ -56,33 +56,33 @@ export default function HomePage() {
 
           <div className={styles.videoOverlay}>
             <p className={styles.videoEyebrow}>{SITE.tagline}</p>
-            <h2 id="video-title" className={styles.videoTitle}>
-              Watch the full tape
+            <h2 id="video" className={styles.videoTitle}>
+              Assista ao vídeo completo
             </h2>
             <span className={styles.videoCta}>
               <PlayIcon />
-              Open video
+              Abrir vídeo
             </span>
           </div>
         </Link>
       </section>
 
-      <section className={`container ${styles.section}`} aria-labelledby="sale-title">
+      <section className={`container ${styles.section}`} aria-labelledby="promocoes">
         <SectionHeading
-          id="sale-title"
-          eyebrow="Last sizes"
-          title="On sale"
-          action={{ label: "Shop sale", href: "/sale" }}
+          id="promocoes"
+          eyebrow="Últimos tamanhos"
+          title="Em promoção"
+          action={{ label: "Ver promoções", href: "/promocoes" }}
         />
         <ProductGrid products={onSale} priorityCount={0} />
 
         <div className={styles.closing}>
           <p className={styles.closingText}>
-            Not sure about sizing? Every deck and tee lists its measurements on
-            the product page.
+            Na dúvida com o tamanho? Cada shape e cada camiseta mostra as medidas
+            na página do produto.
           </p>
-          <Link href="/shop" className={buttonClassName("secondary")}>
-            Browse the collection
+          <Link href="/loja" className={buttonClassName("secondary")}>
+            Ver a coleção
           </Link>
         </div>
       </section>
