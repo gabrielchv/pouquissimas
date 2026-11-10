@@ -1,0 +1,33 @@
+.stepper {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--border-subtle);
+  min-height: 4.8rem;
+}
+
+.control {
+  display: flex;
+  width: 4.4rem;
+  height: 4.6rem;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-secondary);
+  transition: color var(--duration-fast) var(--ease-out);
+}
+
+.control:hover:not(:disabled) {
+  color: var(--color-paper);
+}
+
+.control:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.value {
+  min-width: 3.2rem;
+  text-align: center;
+  font-size: 1.3rem;
+  font-variant-numeric: tabular-nums;
+  color: var(--text-primary);
+}

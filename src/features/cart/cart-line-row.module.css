@@ -1,0 +1,90 @@
+.row {
+  display: grid;
+  grid-template-columns: 8.8rem 1fr;
+  gap: 1.6rem;
+  padding-block: 1.8rem;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.page {
+  grid-template-columns: 11rem 1fr;
+  gap: 2.4rem;
+  padding-block: 2.4rem;
+}
+
+.media {
+  display: block;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.image {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  min-width: 0;
+}
+
+.headingRow {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1.2rem;
+}
+
+.name {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-primary);
+}
+
+.name:hover {
+  color: var(--color-acid);
+}
+
+.lineTotal {
+  font-size: 1.3rem;
+  font-variant-numeric: tabular-nums;
+  color: var(--text-primary);
+  white-space: nowrap;
+}
+
+.meta {
+  font-size: 1.1rem;
+  letter-spacing: 0.08em;
+  color: var(--text-tertiary);
+  text-transform: uppercase;
+}
+
+.unitPrice {
+  font-size: 1.2rem;
+  color: var(--text-secondary);
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.2rem;
+  margin-top: 0.6rem;
+}
+
+.remove {
+  font-size: 1.1rem;
+  letter-spacing: 0.08em;
+  color: var(--text-tertiary);
+  text-transform: uppercase;
+  text-decoration: underline;
+  text-underline-offset: 0.3rem;
+}
+
+.remove:hover {
+  color: var(--text-primary);
+}

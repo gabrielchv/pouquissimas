@@ -1,0 +1,152 @@
+.panel {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.eyebrow {
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  color: var(--text-tertiary);
+  text-transform: uppercase;
+}
+
+.title {
+  font-size: clamp(2.4rem, 4vw, 3.6rem);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.colorway {
+  font-size: 1.2rem;
+  letter-spacing: 0.1em;
+  color: var(--text-tertiary);
+  text-transform: uppercase;
+}
+
+.fieldset {
+  margin-top: 1.2rem;
+  border: 0;
+  padding: 0;
+}
+
+.legend {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.legendHint {
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  color: var(--text-tertiary);
+  text-transform: none;
+}
+
+.sizes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+}
+
+.size {
+  min-width: 5.2rem;
+  padding: 1.2rem 1.4rem;
+  border: 1px solid var(--border-subtle);
+  font-size: 1.2rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--text-secondary);
+  transition:
+    border-color var(--duration-fast) var(--ease-out),
+    color var(--duration-fast) var(--ease-out);
+}
+
+.size:hover:not(:disabled) {
+  border-color: var(--border-strong);
+  color: var(--color-paper);
+}
+
+.sizeActive {
+  border-color: var(--color-acid);
+  color: var(--color-acid);
+}
+
+.size:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.actions {
+  display: flex;
+  gap: 1.2rem;
+  margin-top: 0.8rem;
+}
+
+.addButton {
+  flex: 1;
+}
+
+.shipping {
+  font-size: 1.15rem;
+  color: var(--text-tertiary);
+}
+
+.details {
+  margin-top: 1.6rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.detailsTitle {
+  margin-bottom: 0.8rem;
+  font-size: 1.3rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.description {
+  font-size: 1.35rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+.specs {
+  display: grid;
+  gap: 0.6rem;
+  margin-top: 2rem;
+}
+
+.spec {
+  display: flex;
+  justify-content: space-between;
+  gap: 1.6rem;
+  padding-bottom: 0.6rem;
+  border-bottom: 1px solid var(--border-subtle);
+  font-size: 1.15rem;
+}
+
+.spec dt {
+  color: var(--text-tertiary);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.spec dd {
+  margin: 0;
+  color: var(--text-secondary);
+  text-align: right;
+}
+
+@media (max-width: 549px) {
+  .actions {
+    flex-direction: column;
+  }
+}

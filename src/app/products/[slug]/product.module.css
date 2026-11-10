@@ -1,0 +1,38 @@
+.breadcrumbs {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.8rem;
+  padding-top: var(--space-5);
+  font-size: 1.1rem;
+  letter-spacing: 0.08em;
+  color: var(--text-tertiary);
+  text-transform: uppercase;
+}
+
+.crumb:hover {
+  color: var(--color-acid);
+}
+
+.crumbCurrent {
+  color: var(--text-secondary);
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-5);
+  padding-top: var(--space-5);
+}
+
+.related {
+  margin-top: var(--space-8);
+}
+
+@media (min-width: 990px) {
+  .layout {
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+    gap: var(--space-7);
+    align-items: start;
+  }
+}

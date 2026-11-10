@@ -1,0 +1,67 @@
+/* Shared button surface. Shape and colour come from the design tokens. */
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+  min-height: 4.8rem;
+  padding: 0 2.8rem;
+  border: 1px solid transparent;
+  font-family: var(--font-body);
+  font-size: 1.2rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  line-height: 1;
+  text-transform: uppercase;
+  text-align: center;
+  cursor: pointer;
+  transition:
+    background-color var(--duration-fast) var(--ease-out),
+    border-color var(--duration-fast) var(--ease-out),
+    color var(--duration-fast) var(--ease-out),
+    opacity var(--duration-fast) var(--ease-out);
+}
+
+.button:disabled,
+.button[aria-disabled="true"] {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
+.primary {
+  background: var(--color-acid);
+  border-color: var(--color-acid);
+  color: #1f1f21;
+}
+
+.primary:hover:not(:disabled) {
+  background: var(--color-paper);
+  border-color: var(--color-paper);
+}
+
+.secondary {
+  background: transparent;
+  border-color: var(--border-strong);
+  color: var(--text-primary);
+}
+
+.secondary:hover:not(:disabled) {
+  border-color: var(--color-paper);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.ghost {
+  background: transparent;
+  border-color: transparent;
+  color: var(--text-secondary);
+  padding-inline: 0;
+}
+
+.ghost:hover:not(:disabled) {
+  color: var(--color-paper);
+}
+
+.fullWidth {
+  width: 100%;
+}

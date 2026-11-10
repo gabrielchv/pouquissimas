@@ -1,0 +1,39 @@
+.price {
+  display: flex;
+  align-items: baseline;
+  gap: 0.8rem;
+  font-family: var(--font-body);
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: var(--text-secondary);
+}
+
+.default {
+  font-size: 1.2rem;
+}
+
+.large {
+  font-size: 1.8rem;
+  color: var(--text-primary);
+}
+
+.regularPrice {
+  color: inherit;
+}
+
+.salePrice {
+  color: var(--color-periwinkle);
+}
+
+.compareAt {
+  color: var(--text-tertiary);
+  text-decoration-thickness: 1px;
+  font-size: 0.9em;
+}
+
+.discount {
+  color: var(--color-acid);
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}

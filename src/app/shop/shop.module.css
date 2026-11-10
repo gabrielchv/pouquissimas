@@ -1,0 +1,35 @@
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem 1.6rem;
+  padding-bottom: var(--space-3);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.filter {
+  padding: 0.6rem 0;
+  font-size: 1.2rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  color: var(--text-tertiary);
+  text-transform: uppercase;
+  transition: color var(--duration-fast) var(--ease-out);
+}
+
+.filter:hover {
+  color: var(--text-primary);
+}
+
+.filterActive {
+  color: var(--color-acid);
+  text-decoration: underline;
+  text-underline-offset: 0.6rem;
+}
+
+.count {
+  padding-block: var(--space-3) var(--space-5);
+  font-size: 1.1rem;
+  letter-spacing: 0.1em;
+  color: var(--text-tertiary);
+  text-transform: uppercase;
+}
