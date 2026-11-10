@@ -108,7 +108,14 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: InfoPageProps): Promise<Metadata> {
   const { slug } = await params;
   const page = PAGES[slug];
-  return { title: page ? page.title : "Não encontrado" };
+
+  if (!page) return { title: "Não encontrado", robots: { index: false } };
+
+  return {
+    title: page.title,
+    description: page.intro,
+    alternates: { canonical: `/info/${slug}` },
+  };
 }
 
 export default async function InfoPage({ params }: InfoPageProps) {

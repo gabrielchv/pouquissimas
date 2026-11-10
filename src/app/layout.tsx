@@ -6,7 +6,8 @@ import { AmbientBackground } from "@/components/layout/AmbientBackground";
 import { AnnouncementBar } from "@/components/layout/AnnouncementBar";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { SiteHeader } from "@/components/layout/SiteHeader";
-import { SITE } from "@/config/site";
+import { SITE, SITE_URL } from "@/config/site";
+import { IS_INDEXABLE } from "@/config/indexing";
 import { CartDrawer } from "@/features/cart/CartDrawer";
 import { CartProvider } from "@/features/cart/cart-context";
 
@@ -26,16 +27,51 @@ const oswald = Oswald({
 });
 
 export const metadata: Metadata = {
+  // Sem metadataBase, o Next gera URLs relativas para canonical e OG, e o
+  // Google descarta o canonical. Esta é a base de todo link absoluto.
+  metadataBase: new URL(SITE_URL),
   title: {
-    default: `${SITE.name} — Skate`,
+    default: `${SITE.name} — Shapes e camisetas de skate`,
     template: `%s — ${SITE.name}`,
   },
   description: SITE.description,
+  applicationName: SITE.name,
+  alternates: {
+    canonical: "/",
+  },
+  // Páginas privadas sobrescrevem isto com noindex.
+  robots: {
+    index: IS_INDEXABLE,
+    follow: IS_INDEXABLE,
+    googleBot: {
+      index: IS_INDEXABLE,
+      follow: IS_INDEXABLE,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
   openGraph: {
-    title: `${SITE.name} — Skate`,
+    title: `${SITE.name} — Shapes e camisetas de skate`,
     description: SITE.description,
     type: "website",
     locale: "pt_BR",
+    url: SITE_URL,
+    siteName: SITE.name,
+    images: [
+      {
+        url: "/media/brand/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: `${SITE.name} — shapes e camisetas de skate`,
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${SITE.name} — Shapes e camisetas de skate`,
+    description: SITE.description,
+    images: ["/media/brand/og-image.png"],
   },
 };
 

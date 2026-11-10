@@ -4,7 +4,11 @@ import styles from "./entrar.module.css";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { LoginForm } from "@/features/auth/LoginForm";
 
-export const metadata = { title: "Entrar" };
+export const metadata = {
+  title: "Entrar",
+  // Página privada: fora do índice e fora do sitemap.
+  robots: { index: false, follow: false },
+};
 
 export default function EntrarPage() {
   return (

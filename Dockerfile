@@ -21,6 +21,14 @@ COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
 ENV NEXT_TELEMETRY_DISABLED=1
+
+# Interruptor de indexação, resolvido no build (robots.txt e sitemap.xml são
+# pré-renderizados). Deploy com:
+#   --set-build-env-vars=SITE_INDEXABLE=false
+# para publicar sem aparecer no Google.
+ARG SITE_INDEXABLE
+ENV SITE_INDEXABLE=${SITE_INDEXABLE}
+
 RUN npm run build
 
 # ---------------------------------------------------------------------------

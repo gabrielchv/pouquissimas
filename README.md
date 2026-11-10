@@ -373,6 +373,58 @@ crie um token em <https://dash.cloudflare.com/profile/api-tokens> com:
 Guarde o token em `~/.cloudflare-token` com `chmod 600` — assim ele não entra em
 histórico de shell nem no git.
 
+## SEO — o que já está pronto
+
+- `sitemap.xml` gerado em `src/app/sitemap.ts` com 18 URLs (home, loja, coleções,
+  produtos, informações). Sacola, conta e login ficam de fora.
+- `robots.txt` em `src/app/robots.ts`, liberando o site e bloqueando as páginas
+  privadas, com a linha `Sitemap:` apontando para o domínio canônico.
+- `canonical` em todas as páginas. O serviço responde em quatro endereços (apex,
+  www e dois `*.run.app`); sem canonical o Google indexaria o mesmo conteúdo
+  quatro vezes e dividiria a autoridade. O filtro `?colecao=` tem canonical
+  próprio, então cada coleção é indexada como página distinta.
+- `noindex` em `/conta`, `/sacola` e `/entrar`.
+- JSON-LD: `ClothingStore` na home, `Product` (com `offers`, preço em BRL e
+  disponibilidade) e `BreadcrumbList` nas páginas de produto.
+- Open Graph e Twitter Card com imagem 1200×630 gerada por `npm run brand-assets`.
+- Um `<h1>` por página; `html lang="pt-BR"`.
+
+### Ligar e desligar a indexação
+
+Enquanto o catálogo tiver foto provisória, indexar cria uma primeira impressão
+ruim. O interruptor é resolvido **no build**:
+
+```bash
+# publicar sem aparecer no Google (noindex + robots bloqueando + sitemap vazio)
+gcloud run deploy pouquissimas --source . --region southamerica-east1 \
+  --project machine-learning-study-481717 --set-build-env-vars=SITE_INDEXABLE=false
+
+# voltar a indexar
+gcloud run deploy pouquissimas --source . --region southamerica-east1 \
+  --project machine-learning-study-481717
+```
+
+### Passos que só você pode fazer
+
+1. **Google Search Console** — <https://search.google.com/search-console> →
+   adicionar propriedade de **domínio** `pouquissimas.com`, verificar por TXT no
+   DNS da Cloudflare, e enviar `https://pouquissimas.com/sitemap.xml`.
+2. **Bing Webmaster Tools** — importa direto do Search Console.
+3. **Perfil da empresa no Google** se houver endereço físico/atendimento.
+4. Substituir as imagens provisórias — hoje todo card diz "IMAGEM PROVISÓRIA".
+5. Escrever textos próprios de produto; hoje são descrições genéricas.
+
+### Performance
+
+O vídeo de fundo é decoração e pesa ~525 KB. Ele só é renderizado em tela larga,
+com movimento permitido e sem economia de dados; no celular fica só o poster
+(que é o `background-image` do fundo, visualmente igual). CSS `display:none` não
+bastava: o navegador baixava o mp4 de qualquer forma.
+
+O vídeo da faixa "Assista ao vídeo completo" ainda carrega no celular (~270 KB).
+Se quiser cortar isso também, troque o `<video>` da home por um poster com o
+mesmo overlay — a página `/video` já usa o padrão de carregar só no clique.
+
 ## Verificação
 
 Checado no build de produção em 1440×950 e 390×844:

@@ -2,7 +2,10 @@ import styles from "./video.module.css";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { VideoTile } from "@/components/video/VideoTile";
 
-export const metadata = { title: "Vídeo" };
+export const metadata = {
+  title: "Vídeo",
+  alternates: { canonical: "/video" },
+};
 
 const VIDEOS = [
   {

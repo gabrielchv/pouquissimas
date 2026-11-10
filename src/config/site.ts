@@ -12,6 +12,17 @@ export const SITE = {
   locale: "pt-BR",
 } as const;
 
+/**
+ * URL canônica do site.
+ *
+ * O serviço responde em quatro endereços (apex, www e dois *.run.app), então
+ * sem uma URL canônica o Google indexaria o mesmo conteúdo várias vezes e
+ * dividiria a autoridade entre eles. Todo canonical aponta para cá.
+ *
+ * Trocar de domínio = trocar esta constante.
+ */
+export const SITE_URL = "https://pouquissimas.com";
+
 /** Valor mínimo do pedido para frete grátis, em centavos. */
 export const FREE_SHIPPING_THRESHOLD = 29900;
 

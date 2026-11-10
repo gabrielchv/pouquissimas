@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 
 import styles from "./loja.module.css";
@@ -17,7 +18,25 @@ function parseCollection(value: string | undefined): CollectionId | "todas" {
   return match ? match.id : "todas";
 }
 
-export const metadata = { title: "Loja" };
+/**
+ * O canonical acompanha o filtro.
+ *
+ * Se toda variação apontasse para /loja, o Google trataria ?colecao=shapes como
+ * duplicata da loja inteira e as entradas do sitemap seriam ignoradas.
+ */
+export async function generateMetadata({ searchParams }: LojaPageProps): Promise<Metadata> {
+  const { colecao } = await searchParams;
+  const collection = parseCollection(colecao);
+  const active = COLLECTIONS.find((item) => item.id === collection);
+
+  const canonical = active ? `/loja?colecao=${active.id}` : "/loja";
+
+  return {
+    title: active ? `${active.label} — Loja` : "Loja",
+    description: active?.blurb ?? "Shapes e camisetas de skate.",
+    alternates: { canonical },
+  };
+}
 
 export default async function LojaPage({ searchParams }: LojaPageProps) {
   const { colecao } = await searchParams;

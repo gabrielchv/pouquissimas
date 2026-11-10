@@ -49,3 +49,18 @@
     display: none;
   }
 }
+
+/* Telas pequenas: fica só o poster. O vídeo é decoração e não deve consumir
+   centenas de KB no 4G de quem está comprando pelo celular. */
+@media (max-width: 749px) {
+  .video {
+    display: none;
+  }
+}
+
+/* Economia de dados (Android/Chrome): também só o poster. */
+@media (prefers-reduced-data: reduce) {
+  .video {
+    display: none;
+  }
+}

@@ -7,6 +7,7 @@ import { SectionHeading } from "@/components/product/SectionHeading";
 import { buttonClassName } from "@/components/ui/button-classes";
 import { PlayIcon } from "@/components/ui/Icons";
 import { SITE } from "@/config/site";
+import { OrganizationJsonLd } from "@/components/seo/JsonLd";
 import {
   getNewArrivals,
   getProductsByCollection,
@@ -21,6 +22,7 @@ export default function HomePage() {
 
   return (
     <div className={styles.home}>
+      <OrganizationJsonLd />
       <section className={`container ${styles.section}`} aria-labelledby="novidades">
         <SectionHeading
           id="novidades"

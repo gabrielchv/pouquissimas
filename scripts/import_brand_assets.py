@@ -7,6 +7,7 @@ produces the small, optimised crops the storefront actually ships:
     public/media/brand/logo.png           lockup oficial: nome + carro
     public/media/brand/logo-wordmark.png  só o nome, para o cabeçalho no celular
     public/media/brand/guara.png          um guará, para o favicon e destaques
+    public/media/brand/og-image.png       imagem 1200x630 para compartilhamento
 
 Run with:  POUQUISSIMAS_ART=/path/to/brand python3 scripts/import_brand_assets.py
 """
@@ -16,11 +17,13 @@ from __future__ import annotations
 import os
 from pathlib import Path
 
-from PIL import Image
+from PIL import Image, ImageDraw, ImageFont
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "public" / "media" / "brand"
 ART = Path(os.environ.get("POUQUISSIMAS_ART", Path.home() / "Documents" / "pouquissimas"))
+
+FONT_BOLD = "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"
 
 
 def crop_to_content(image: Image.Image) -> Image.Image:
@@ -186,6 +189,55 @@ def build_single_bird(source: Path) -> Image.Image:
     return canvas.resize((512, 512), Image.LANCZOS)
 
 
+def build_og_image(logo: Image.Image) -> Image.Image:
+    """Card 1200x630 para WhatsApp, X, LinkedIn e preview do Google.
+
+    O logo é branco, então o fundo é escuro; o texto embaixo diz o que a loja
+    vende, porque só a marca não comunica nada em um preview.
+    """
+    width, height = 1200, 630
+    canvas = Image.new("RGBA", (width, height), (8, 9, 12, 255))
+
+    # Brilho suave no canto, no tom do azul do guará.
+    glow = Image.new("RGBA", (width, height), (0, 0, 0, 0))
+    draw = ImageDraw.Draw(glow)
+    for step in range(60):
+        alpha = max(0, 26 - step // 3)
+        radius = 520 - step * 7
+        draw.ellipse(
+            (width - radius, -radius // 2, width + radius, radius),
+            fill=(90, 169, 221, alpha),
+        )
+    canvas.alpha_composite(glow)
+
+    # Logo centralizado na metade de cima.
+    art = crop_to_content(logo)
+    ratio = 620 / art.width
+    art = art.resize((620, max(1, round(art.height * ratio))), Image.LANCZOS)
+    canvas.alpha_composite(art, ((width - art.width) // 2, 70))
+
+    draw = ImageDraw.Draw(canvas)
+    title_font = ImageFont.truetype(FONT_BOLD, 44)
+    sub_font = ImageFont.truetype(FONT_BOLD, 26)
+
+    draw.text(
+        (width // 2, 520),
+        "SHAPES E CAMISETAS",
+        font=title_font,
+        fill=(255, 255, 255, 255),
+        anchor="mm",
+    )
+    draw.text(
+        (width // 2, 570),
+        "pouquissimas.com",
+        font=sub_font,
+        fill=(245, 208, 46, 255),
+        anchor="mm",
+    )
+
+    return canvas.convert("RGB")
+
+
 def main() -> None:
     OUT.mkdir(parents=True, exist_ok=True)
 
@@ -202,6 +254,11 @@ def main() -> None:
         path = OUT / name
         image.save(path, optimize=True)
         print(f"wrote {path.relative_to(ROOT)} ({image.width}x{image.height}, {path.stat().st_size // 1024} KB)")
+
+    og = build_og_image(Image.open(OUT / "logo.png"))
+    og_path = OUT / "og-image.png"
+    og.save(og_path, optimize=True)
+    print(f"wrote {og_path.relative_to(ROOT)} ({og.width}x{og.height}, {og_path.stat().st_size // 1024} KB)")
 
 
 if __name__ == "__main__":

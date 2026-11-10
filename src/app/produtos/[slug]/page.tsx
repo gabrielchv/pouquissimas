@@ -8,6 +8,8 @@ import { ProductGrid } from "@/components/product/ProductGrid";
 import { ProductPurchasePanel } from "@/components/product/ProductPurchasePanel";
 import { SectionHeading } from "@/components/product/SectionHeading";
 import { getAllProducts, getProductBySlug, getRelatedProducts } from "@/lib/catalog";
+import { SITE_URL } from "@/config/site";
+import { BreadcrumbJsonLd, ProductJsonLd } from "@/components/seo/JsonLd";
 
 interface ProdutoPageProps {
   params: Promise<{ slug: string }>;
@@ -23,9 +25,19 @@ export async function generateMetadata({ params }: ProdutoPageProps): Promise<Me
 
   if (!product) return { title: "Produto não encontrado" };
 
+  const imageUrl = `${SITE_URL}${product.image}`;
+
   return {
     title: product.name,
     description: product.description,
+    alternates: { canonical: `/produtos/${product.slug}` },
+    openGraph: {
+      title: product.name,
+      description: product.description,
+      url: `${SITE_URL}/produtos/${product.slug}`,
+      type: "website",
+      images: [{ url: imageUrl, alt: product.name }],
+    },
   };
 }
 
@@ -46,6 +58,15 @@ export default async function ProdutoPage({ params }: ProdutoPageProps) {
 
   return (
     <div className="container">
+      <ProductJsonLd product={product} imageUrl={`${SITE_URL}${product.image}`} />
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Início", href: "/" },
+          { name: "Loja", href: "/loja" },
+          { name: product.name },
+        ]}
+      />
+
       <nav className={styles.breadcrumbs} aria-label="Você está aqui">
         <Link href="/" className={styles.crumb}>
           Início

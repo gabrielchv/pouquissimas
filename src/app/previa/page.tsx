@@ -6,7 +6,10 @@ import { PageHeader } from "@/components/layout/PageHeader";
 import { buttonClassName } from "@/components/ui/button-classes";
 import { getAllProducts } from "@/lib/catalog";
 
-export const metadata = { title: "Prévia" };
+export const metadata = {
+  title: "Prévia",
+  alternates: { canonical: "/previa" },
+};
 
 /** Lookbook montado com as imagens do mesmo catálogo. */
 export default function PreviaPage() {

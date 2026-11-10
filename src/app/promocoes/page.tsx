@@ -3,7 +3,10 @@ import { PageHeader } from "@/components/layout/PageHeader";
 import { ProductGrid } from "@/components/product/ProductGrid";
 import { getSaleProducts } from "@/lib/catalog";
 
-export const metadata = { title: "Promoções" };
+export const metadata = {
+  title: "Promoções",
+  alternates: { canonical: "/promocoes" },
+};
 
 export default function PromocoesPage() {
   const products = getSaleProducts();
