@@ -7,6 +7,7 @@ import { useState, type FormEvent } from "react";
 import styles from "./formulario.module.css";
 import { buttonClassName } from "@/components/ui/button-classes";
 import { useAuth } from "./use-auth";
+import { safeRedirect } from "./safe-redirect";
 
 interface LoginFormProps {
   /** Para onde ir depois do login. Sanitizado para caminhos internos. */
@@ -120,9 +121,3 @@ export function LoginForm({ redirectTo = "/conta" }: LoginFormProps) {
   );
 }
 
-/** Só aceita caminhos do próprio site, para `?next=` não virar redirect aberto. */
-function safeRedirect(value: string | null): string | null {
-  if (!value) return null;
-  if (!value.startsWith("/") || value.startsWith("//")) return null;
-  return value;
-}
