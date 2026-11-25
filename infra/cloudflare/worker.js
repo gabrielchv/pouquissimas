@@ -50,17 +50,39 @@ const worker = {
     const contentType = upstream.headers.get("content-type") ?? "";
     const isHtml = contentType.includes("text/html");
 
-    if (originUrl.pathname.startsWith("/_next/static/")) {
-      // Assets com hash no nome: nunca mudam.
-      out.headers.set("Cache-Control", "public, max-age=31536000, immutable");
+    // O status decide antes do tipo de conteúdo.
+    //
+    // A política anterior olhava só o `content-type`: qualquer HTML recebia
+    // `s-maxage=60, stale-while-revalidate=300`, inclusive um 404 ou um 502 do
+    // Next — e a Cloudflare guarda 404 por padrão. O efeito é um erro de origem
+    // transitório (deploy em andamento, cold start que falhou) ficando preso na
+    // borda e sendo servido para todo mundo por até 6 minutos, bem no momento em
+    // que o site deveria estar voltando ao ar.
+    const status = upstream.status;
+
+    if (status >= 500) {
+      // Nunca cachear erro de origem.
+      out.headers.set("Cache-Control", "no-store");
+    } else if (originUrl.pathname.startsWith("/_next/static/")) {
+      // Assets com hash no nome: nunca mudam. Só 2xx: um 404 aqui é uma referência
+      // quebrada e não pode virar imutável por um ano.
+      out.headers.set(
+        "Cache-Control",
+        status >= 200 && status < 300
+          ? "public, max-age=31536000, immutable"
+          : "no-store",
+      );
     } else if (NEVER_CACHE.some((path) => originUrl.pathname.startsWith(path))) {
       out.headers.set("Cache-Control", "no-store");
-    } else if (isHtml) {
+    } else if (isHtml && status >= 200 && status < 300) {
       // Cache curto na borda: absorve picos e propaga mudanças em ~1 minuto.
       out.headers.set(
         "Cache-Control",
         "public, max-age=0, s-maxage=60, stale-while-revalidate=300",
       );
+    } else {
+      // 3xx/4xx, ou conteúdo não-HTML sem regra própria: não guardar.
+      out.headers.set("Cache-Control", "no-store");
     }
 
     // Headers internos da origem não precisam chegar ao navegador.

@@ -62,6 +62,60 @@ response = await worker.fetch(request("https://pouquissimas.com/sacola"));
 check("sacola é no-store", response.headers.get("cache-control") === "no-store", response.headers.get("cache-control"));
 check("header server removido", response.headers.get("server") === null);
 
+// 5) status decide a política, não só o content-type.
+// A Cloudflare guarda 404 por padrão, então um HTML de erro com s-maxage=60
+// ficava preso na borda — inclusive um 502 transitório de deploy.
+async function withStatus(status, body = "<html>erro</html>") {
+  globalThis.fetch = async (input) => {
+    calls.push({ url: typeof input === "string" ? input : input.url });
+    return new Response(body, {
+      status,
+      headers: { "content-type": "text/html; charset=utf-8", "cache-control": "s-maxage=31536000" },
+    });
+  };
+  return worker.fetch(request(`https://pouquissimas.com/pagina-${status}`));
+}
+
+for (const status of [500, 502, 503, 404]) {
+  const res = await withStatus(status);
+  const cc = res.headers.get("cache-control") ?? "";
+  check(
+    `HTML ${status} não é cacheado`,
+    cc === "no-store",
+    cc,
+  );
+}
+
+// 6) um asset com 404 não pode virar imutável
+globalThis.fetch = async (input) => {
+  calls.push({ url: typeof input === "string" ? input : input.url });
+  return new Response("missing", {
+    status: 404,
+    headers: { "content-type": "text/html; charset=utf-8" },
+  });
+};
+response = await worker.fetch(request("https://pouquissimas.com/_next/static/chunks/nao-existe.js"));
+check(
+  "asset 404 é no-store, não immutable",
+  response.headers.get("cache-control") === "no-store",
+  response.headers.get("cache-control"),
+);
+
+// 7) asset 200 continua imutável
+globalThis.fetch = async (input) => {
+  calls.push({ url: typeof input === "string" ? input : input.url });
+  return new Response("js", {
+    status: 200,
+    headers: { "content-type": "application/javascript" },
+  });
+};
+response = await worker.fetch(request("https://pouquissimas.com/_next/static/chunks/app.js"));
+check(
+  "asset 200 é immutable",
+  (response.headers.get("cache-control") ?? "").includes("immutable"),
+  response.headers.get("cache-control"),
+);
+
 let failures = 0;
 for (const result of results) {
   if (!result.ok) failures++;
