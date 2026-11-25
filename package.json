@@ -14,7 +14,7 @@
     "cf:dev": "wrangler dev --config infra/cloudflare/wrangler.jsonc",
     "cf:deploy": "wrangler deploy --config infra/cloudflare/wrangler.jsonc",
     "cf:test": "node infra/cloudflare/worker.test.mjs",
-    "test:redirect": "node --test src/features/auth/safe-redirect.test.ts"
+    "test:redirect": "node --test src/features/auth/safe-redirect.test.ts src/lib/own-value.test.ts"
   },
   "dependencies": {
     "next": "16.4.6",

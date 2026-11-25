@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import styles from "./info.module.css";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { SITE } from "@/config/site";
+import { ownValue } from "@/lib/own-value";
 
 interface InfoPageProps {
   params: Promise<{ slug: string }>;
@@ -107,7 +108,7 @@ export function generateStaticParams() {
 
 export async function generateMetadata({ params }: InfoPageProps): Promise<Metadata> {
   const { slug } = await params;
-  const page = PAGES[slug];
+  const page = ownValue(PAGES, slug);
 
   if (!page) return { title: "Não encontrado", robots: { index: false } };
 
@@ -120,7 +121,10 @@ export async function generateMetadata({ params }: InfoPageProps): Promise<Metad
 
 export default async function InfoPage({ params }: InfoPageProps) {
   const { slug } = await params;
-  const page = PAGES[slug];
+  // `PAGES[slug]` would also match inherited keys such as `constructor` and
+  // `__proto__`, which are truthy but have no `sections` — a 500 where a 404
+  // belongs. See lib/own-value.ts.
+  const page = ownValue(PAGES, slug);
 
   if (!page) notFound();
 
